@@ -8,12 +8,16 @@ import Navbar from "@/components/root/Navbar";
 export default function Home() {
     return (
         <>
-            <Navbar></Navbar>
-            <HeroSection></HeroSection>
-            <HomeAboutUs></HomeAboutUs>
-            <HomeServices></HomeServices>
-            <HomeQuoteSection></HomeQuoteSection>
-            <Footer></Footer>
+            <div className="fixed top-0 left-0 right-0 z-50">
+                <Navbar />
+            </div>
+            <div>
+                <HeroSection />
+                <HomeAboutUs />
+                <HomeServices />
+                <HomeQuoteSection />
+                <Footer />
+            </div>
         </>
     );
 }
