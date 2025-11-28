@@ -1,3 +1,4 @@
+import ChooseUs from "@/components/root/about/ChooseUs";
 import OurStory from "@/components/root/about/OurStory";
 import OurValue from "@/components/root/about/OurValue";
 
@@ -6,6 +7,7 @@ const page = () => {
         <>
             <OurStory></OurStory>
             <OurValue></OurValue>
+            <ChooseUs></ChooseUs>
         </>
     );
 };
