@@ -7,19 +7,19 @@ const HomeServices = () => {
             id: 1,
             title: "Office Cleaning",
             description: "While we can customize your cleaning plan to suit your needs, most clients schedule regular cleaning services.",
-            image: "/home/picture1.svg",
+            image: "/home/Image.svg",
         },
         {
             id: 2,
             title: "Spring Cleaning",
             description: "While we can customize your cleaning plan to suit your needs, most clients schedule regular cleaning services.",
-            image: "/home/picture1.svg",
+            image: "/home/Image.svg",
         },
         {
             id: 3,
             title: "House Cleaning",
             description: "While we can customize your cleaning plan to suit your needs, most clients schedule regular cleaning services.",
-            image: "/home/picture1.svg",
+            image: "/home/Image.svg",
         },
     ];
 
@@ -38,7 +38,7 @@ const HomeServices = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {services.map((service) => (
                         <div key={service.id} className="w-full">
-                            <Image src={service.image} alt={service.title} width={400} height={300} className="w-full h-64 object-cover rounded-lg mb-4" />
+                            <Image src={service.image} alt={service.title} width={400} height={300} className="w-full h-64 object-cover rounded-[30px] mb-4" />
                             <h3 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h3>
                             <p className="text-gray-600 mb-6">{service.description}</p>
                             <button className="flex items-center gap-2 border border-[#3CB371] text-[#3CB371] px-6 py-3 rounded-lg font-semibold hover:bg-[#3CB371] hover:text-white transition-colors">
