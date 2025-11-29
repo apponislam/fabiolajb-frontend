@@ -9,7 +9,6 @@ import { LuEye, LuEyeClosed } from "react-icons/lu";
 
 const changePasswordSchema = z
     .object({
-        oldPassword: z.string().min(1, "Old password is required"),
         newPassword: z.string().min(1, "New password is required"),
         confirmPassword: z.string().min(1, "Please confirm your password"),
     })
@@ -21,7 +20,6 @@ const changePasswordSchema = z
 type ChangePasswordFormData = z.infer<typeof changePasswordSchema>;
 
 const ChangePasswordPage = () => {
-    const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -58,20 +56,6 @@ const ChangePasswordPage = () => {
 
                     {/* Change Password Form */}
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        {/* Old Password */}
-                        <div className="relative">
-                            <div className="relative">
-                                <input {...register("oldPassword")} type={showOldPassword ? "text" : "password"} id="oldPassword" className="w-full px-4 py-3 border border-[#5E5E5E] rounded-[18px] bg-white focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent pr-10 peer" placeholder=" " />
-                                <label htmlFor="oldPassword" className="absolute left-4 top-3 text-[#5E5E5E] transition-all duration-200 transform peer-focus:-translate-y-6 peer-focus:text-sm peer-focus:text-[#3CB371] peer-placeholder-shown:translate-y-0 peer-placeholder-shown:text-base bg-white px-1 peer-not-placeholder-shown:-translate-y-6 peer-not-placeholder-shown:text-sm">
-                                    Old Password
-                                </label>
-                                <button type="button" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700" onClick={() => setShowOldPassword(!showOldPassword)}>
-                                    {showOldPassword ? <LuEyeClosed className="text-[#5E5E5E]" /> : <LuEye className="text-[#3CB371]" />}
-                                </button>
-                            </div>
-                            {errors.oldPassword && <p className="text-red-500 text-sm mt-1">{errors.oldPassword.message}</p>}
-                        </div>
-
                         {/* New Password */}
                         <div className="relative">
                             <div className="relative">
