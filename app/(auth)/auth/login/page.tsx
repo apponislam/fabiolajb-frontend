@@ -32,7 +32,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="h-screen flex p-[104px]">
+        <div className="h-screen flex p-4 md:p-[104px]">
             {/* Left Side - Image */}
             <div className="hidden lg:block lg:w-1/2">
                 <div className="h-full">
