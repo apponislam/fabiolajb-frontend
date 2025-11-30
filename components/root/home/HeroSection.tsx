@@ -3,12 +3,12 @@ import { MdAddCall } from "react-icons/md";
 
 const HeroSection = () => {
     return (
-        <section className="min-h-screen bg-[url('/home/herohome.png')] bg-cover bg-center bg-no-repeat py-12 px-4 relative">
+        <section className="min-h-screen bg-[url('/home/herohome.png')] bg-cover bg-center bg-no-repeat py-24 md:py-12 px-4 relative">
             {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-black/60"></div>
 
             {/* Content */}
-            <div className="relative z-10 mx-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="relative z-10 md:mx-20 grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-12 items-center">
                 {/* Left Side - Content */}
                 <div className="space-y-6 text-white">
                     <h1 className="text-4xl md:text-5xl font-bold leading-tight">

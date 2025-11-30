@@ -8,7 +8,7 @@ const HomeAboutUs = () => {
 
                 <div className="text-center mb-8">
                     <button className="text-[#5E5E5E] px-6 py-3 bg-white border-b border-[#3CB371] rounded-xl mb-5">About Us</button>
-                    <h2 className="text-[34px] md:text-[34px] font-medium ">
+                    <h2 className="text-[24px] md:text-[34px] font-medium ">
                         We Don’t Just Clean —{" "}
                         <span className="text-[#3CB371]">
                             {" "}
@@ -17,7 +17,7 @@ const HomeAboutUs = () => {
                         Business.
                     </h2>
                 </div>
-                {/* Image + Text Sections */}
+
                 <div className="space-y-8 mb-16">
                     {/* First Row - Two images side by side with absolute text */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

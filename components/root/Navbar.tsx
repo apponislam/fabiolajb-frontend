@@ -58,10 +58,11 @@ const Navbar = () => {
         <nav className={`text-white py-4 px-6 ${scrolled ? "bg-[#282828]" : "bg-transparent"}`}>
             <div className="container mx-auto flex items-center justify-between">
                 {/* Left Side - Logo */}
-                <div className="shrink-0">
-                    {/* <Image src={isHomePage ? "/logowhite.svg" : "/logoblack.svg"} alt="Logo" width={120} height={32} className="h-8 w-auto" /> */}
-                    <Image src={logoSrc} alt="Logo" width={120} height={32} className="h-8 w-auto" />
-                </div>
+                <Link href="/">
+                    <div className="shrink-0">
+                        <Image src={logoSrc} alt="Logo" width={120} height={32} className="h-8 w-auto" />
+                    </div>
+                </Link>
 
                 {/* Middle - Navigation - Desktop */}
                 <div className="hidden md:flex items-center space-x-2 bg-[#FFFFFF1A] backdrop-blur-sm rounded-[40px] p-3">
@@ -92,9 +93,9 @@ const Navbar = () => {
 
                 {/* Mobile Menu Button */}
                 <button className="md:hidden flex flex-col space-y-1" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                    <span className="w-6 h-0.5 bg-white"></span>
-                    <span className="w-6 h-0.5 bg-white"></span>
-                    <span className="w-6 h-0.5 bg-white"></span>
+                    <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>
+                    <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>
+                    <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>
                 </button>
 
                 {/* Right Side - Button - Desktop */}

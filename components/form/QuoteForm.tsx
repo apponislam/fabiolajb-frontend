@@ -200,7 +200,7 @@ const QuoteForm = () => {
     };
 
     return (
-        <div className="bg-[#FFFFFF1A] backdrop-blur-sm rounded-2xl p-6 border border-[#FFFFFF] mt-30">
+        <div className="bg-[#FFFFFF1A] backdrop-blur-sm rounded-2xl p-6 border border-[#FFFFFF] mt-4 md:mt-30">
             <h2 className="text-xl font-bold mb-4 text-center text-white">Request a Quote</h2>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">

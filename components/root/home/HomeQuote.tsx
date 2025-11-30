@@ -22,7 +22,7 @@ const HomeQuoteSection = () => {
                     </div>
 
                     {/* Right Side - Form */}
-                    <div className="bg-white rounded-2xl p-6">
+                    <div className="bg-white rounded-2xl md:p-6">
                         <form className="space-y-3">
                             {/* Full Name & Cleaning Frequency */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
