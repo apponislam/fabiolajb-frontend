@@ -98,7 +98,7 @@ export function InvoicePreview() {
                     <p className="text-muted-foreground text-sm">{invoiceData.date}</p>
                 </div>
 
-                <Image src="/payment.png" alt="Payment" height={132} width={200} className="absolute top-0 right-0 w-28"></Image>
+                <Image src="/payment.svg" alt="Payment" height={132} width={200} className="absolute top-0 right-0 w-28"></Image>
 
                 {/* Invoice Details */}
                 <div className="space-y-2">
