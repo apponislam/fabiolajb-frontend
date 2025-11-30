@@ -18,8 +18,12 @@ const Footer = () => {
 
                 {/* Get Free Quote and Contact Us buttons */}
                 <div className="flex flex-col sm:flex-row justify-center gap-6 md:gap-12 mb-8 md:mb-12">
-                    <button className="bg-transparent w-full sm:w-[200px] lg:w-[241px] text-[#3CB371] px-6 md:px-8 py-3 rounded-[30px] font-semibold hover:bg-[#35a065] hover:text-white transition-colors border border-[#3CB371]">Get Free Quote</button>
-                    <button className="border bg-[#3CB371] w-full sm:w-[200px] lg:w-[241px] border-[#3CB371] text-white px-6 md:px-8 py-3 rounded-[30px] font-semibold hover:bg-transparent hover:text-[#3CB371] transition-colors">Contact Us</button>
+                    <Link href="/quote">
+                        <button className="bg-transparent w-full sm:w-[200px] lg:w-[241px] text-[#3CB371] px-6 md:px-8 py-3 rounded-[30px] font-semibold hover:bg-[#35a065] hover:text-white transition-colors border border-[#3CB371]">Get Free Quote</button>
+                    </Link>
+                    <Link href="/contact">
+                        <button className="border bg-[#3CB371] w-full sm:w-[200px] lg:w-[241px] border-[#3CB371] text-white px-6 md:px-8 py-3 rounded-[30px] font-semibold hover:bg-transparent hover:text-[#3CB371] transition-colors">Contact Us</button>
+                    </Link>
                 </div>
 
                 {/* Navigation links */}
@@ -31,7 +35,7 @@ const Footer = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link href="/service" className="hover:text-white/80 transition-colors text-[16px] md:text-[18px]">
+                            <Link href="/services" className="hover:text-white/80 transition-colors text-[16px] md:text-[18px]">
                                 Service
                             </Link>
                         </li>

@@ -100,7 +100,9 @@ const Navbar = () => {
 
                 {/* Right Side - Button - Desktop */}
                 <div className="hidden md:block shrink-0">
-                    <button className="bg-[#3CB371] text-white px-6 py-3 rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors whitespace-nowrap">Get Free Quote</button>
+                    <Link href="/quote">
+                        <button className="bg-[#3CB371] text-white px-6 py-3 rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors whitespace-nowrap">Get Free Quote</button>
+                    </Link>
                 </div>
 
                 {/* Mobile Menu */}
@@ -120,7 +122,9 @@ const Navbar = () => {
                                     {item.name}
                                 </Link>
                             ))}
-                            <button className="bg-[#3CB371] text-white px-4 py-3 rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors mt-4">Get Free Quote</button>
+                            <Link href="/quote" className="w-full">
+                                <button className="bg-[#3CB371] text-white px-4 py-3 w-full rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors mt-4">Get Free Quote</button>
+                            </Link>
                         </div>
                     </div>
                 )}
