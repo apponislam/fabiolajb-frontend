@@ -33,7 +33,7 @@ export function TransactionTable() {
         setCurrentPage(page);
     };
 
-    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(Math.max(0, Math.ceil(currentPage) - 2), Math.ceil(currentPage) + 1);
+    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     return (
         <div className="space-y-4">
@@ -83,7 +83,7 @@ export function TransactionTable() {
                     Showing {startIndex + 1} to {Math.min(endIndex, filteredTransactions.length)} of {filteredTransactions.length} results
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" onClick={handlePreviousPage} disabled={currentPage === 1}>
+                    <Button variant="outline" size="sm" onClick={handlePreviousPage} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
                         <ChevronLeft className="h-4 w-4" />
                         Previous
                     </Button>
@@ -91,13 +91,13 @@ export function TransactionTable() {
                     {/* Page Numbers */}
                     <div className="flex gap-1">
                         {pageNumbers.map((page) => (
-                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => handlePageClick(page)} className={currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371]" : ""}>
+                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => handlePageClick(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
                                 {page}
                             </Button>
                         ))}
                     </div>
 
-                    <Button variant="outline" size="sm" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                    <Button variant="outline" size="sm" onClick={handleNextPage} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
                         Next
                         <ChevronRight className="h-4 w-4" />
                     </Button>

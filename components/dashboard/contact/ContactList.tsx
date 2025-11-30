@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Download } from "lucide-react";
+import { Download, ChevronLeft, ChevronRight } from "lucide-react";
 import { inquiryData } from "./contactDemoData";
 
 const ITEMS_PER_PAGE = 10;
@@ -17,7 +17,8 @@ export function InquiryTable() {
 
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+    const endIndex = startIndex + ITEMS_PER_PAGE;
+    const paginatedData = filteredData.slice(startIndex, endIndex);
 
     const handleExport = () => {
         const csv = [["Full Name", "Phone", "Email", "Message"], ...filteredData.map((item) => [item.fullName, item.phone, item.email, item.message])].map((row) => row.map((cell) => `"${cell}"`).join(",")).join("\n");
@@ -70,23 +71,29 @@ export function InquiryTable() {
                 </table>
             </div>
 
-            <div className="flex items-center justify-between">
-                <div className="text-sm text-gray-600">
-                    Showing {paginatedData.length > 0 ? startIndex + 1 : 0} to {Math.min(startIndex + ITEMS_PER_PAGE, filteredData.length)} of {filteredData.length} results
+            {/* Pagination */}
+            <div className="flex items-center justify-between pt-4">
+                <div className="text-sm text-muted-foreground">
+                    Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)} of {filteredData.length} results
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1}>
+                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
+                        <ChevronLeft className="h-4 w-4" />
                         Previous
                     </Button>
+
+                    {/* Page Numbers */}
                     <div className="flex gap-1">
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : ""}>
+                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
                                 {page}
                             </Button>
                         ))}
                     </div>
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages}>
+
+                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
                         Next
+                        <ChevronRight className="h-4 w-4" />
                     </Button>
                 </div>
             </div>
