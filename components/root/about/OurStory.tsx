@@ -5,7 +5,7 @@ const OurStory = () => {
         <div className="min-h-screen bg-white py-12 px-6">
             <div className="container mx-auto">
                 {/* Main Heading */}
-                <h1 className="text-4xl font-medium text-[#5E5E5E] mb-6 text-center">
+                <h1 className="text-2xl md:text-4xl font-medium text-[#5E5E5E] mb-6 text-center">
                     We Don&apos;t Just Clean —{" "}
                     <span className="text-[#3CB371]">
                         We Care for
@@ -16,7 +16,7 @@ const OurStory = () => {
                 </h1>
 
                 {/* Subheading */}
-                <p className="text-xl text-[#797979] text-center mb-16 leading-relaxed">
+                <p className="md:text-xl text-[#797979] text-center mb-16 leading-relaxed">
                     We&apos;re more than just a cleaning company – we&apos;re your partners in creating clean, <br /> healthy, and stress-free spaces where you can truly breathe easy.
                 </p>
 
