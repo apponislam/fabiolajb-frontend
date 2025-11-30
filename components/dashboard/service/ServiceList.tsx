@@ -96,24 +96,30 @@ export function ServiceList({ services = [], itemsPerPage = 5 }: ServiceListProp
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex items-center justify-end gap-2">
-                    <Button className="border border-[#909090] text-[#909090]" variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1}>
-                        <ChevronLeft className="h-4 w-4" />
-                        Previous
-                    </Button>
-
-                    <div className="flex gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={currentPage === page ? "bg-[#C3E7D3] hover:bg-[#C3E7D3] text-[#3CB371] border border-[#C3E7D3]" : "border border-[#909090] text-[#909090]"}>
-                                {page}
-                            </Button>
-                        ))}
+                <div className="flex items-center justify-between pt-4">
+                    <div className="text-sm text-muted-foreground">
+                        Showing {startIndex + 1} to {Math.min(endIndex, serviceList.length)} of {serviceList.length} results
                     </div>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
+                            <ChevronLeft className="h-4 w-4" />
+                            Previous
+                        </Button>
 
-                    <Button className="border border-[#909090] text-[#909090]" variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>
-                        Next
-                        <ChevronRight className="h-4 w-4" />
-                    </Button>
+                        {/* Page Numbers */}
+                        <div className="flex gap-1">
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                                <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
+                                    {page}
+                                </Button>
+                            ))}
+                        </div>
+
+                        <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
+                            Next
+                            <ChevronRight className="h-4 w-4" />
+                        </Button>
+                    </div>
                 </div>
             )}
         </div>
