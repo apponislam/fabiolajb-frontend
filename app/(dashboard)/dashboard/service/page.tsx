@@ -1,6 +1,5 @@
 import { servicesData } from "@/components/dashboard/service/demoServiceData";
 import { ServiceList } from "@/components/dashboard/service/ServiceList";
-import React from "react";
 
 const page = () => {
     return (

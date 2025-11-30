@@ -64,7 +64,7 @@ const ServicesPage = () => {
             {/* Hero Section */}
             <section className="px-4">
                 <div className="container mx-auto text-center">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-6 max-w-4xl mx-auto leading-tight">
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 max-w-4xl mx-auto leading-tight">
                         We Don&apos;t Just Clean —
                         <span className="text-[#3CB371]">
                             {" "}

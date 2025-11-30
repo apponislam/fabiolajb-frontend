@@ -14,10 +14,15 @@ const HomeQuoteSection = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                     {/* Left Side - Image with Text Overlay */}
-                    <div className="relative h-full">
-                        <Image src="/home/picture1.svg" alt="Quote" width={600} height={500} className="w-full h-full object-cover rounded-lg" />
-                        <div className="absolute bottom-4 right-4 text-[#797979] p-4 rounded-lg max-w-60 md:max-w-xs">
-                            <p className="text-sm md:text-[16px]">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                    <div className="relative w-full  mx-auto rounded-[40px]">
+                        <div className=" overflow-hidden rounded-[40px] h-full">
+                            <Image src="/home/image2.jpg" alt="Cleaning" width={1000} height={600} className="w-full h-full object-cover" />
+                        </div>
+
+                        <div className="absolute bottom-0 right-0">
+                            <div className="relative bg-white p-4 md:p-8 w-64 md:w-auto md:max-w-sm text-[#797979] rounded-[40px]">
+                                <p className="text-[12px] md:text-sm leading-relaxed">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
+                            </div>
                         </div>
                     </div>
 

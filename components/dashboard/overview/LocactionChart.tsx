@@ -75,7 +75,7 @@ export function TrafficByLocationChart() {
                 <CardTitle className="text-lg font-semibold">Traffic by Location</CardTitle>
             </CardHeader>
             <CardContent>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between flex-col md:flex-row gap-3">
                     {/* Donut Chart */}
                     <div className="w-48 h-48">
                         <ResponsiveContainer width="100%" height="100%">
@@ -91,7 +91,7 @@ export function TrafficByLocationChart() {
                     </div>
 
                     {/* Legend */}
-                    <div className="flex flex-col gap-4 ml-8">
+                    <div className="flex flex-col gap-4 md:ml-8">
                         {data.map((item, index) => (
                             <div key={index} className="flex items-center gap-3">
                                 <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
