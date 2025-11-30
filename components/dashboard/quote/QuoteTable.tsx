@@ -110,7 +110,7 @@ export function CustomerTable() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between pt-4">
+            <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
                 <div className="text-sm text-muted-foreground">
                     Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)} of {filteredData.length} results
                 </div>

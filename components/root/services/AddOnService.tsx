@@ -9,7 +9,7 @@ const AddOnService = () => {
                 {/* Header */}
                 <div className="text-center mb-12">
                     <h2 className="text-3xl md:text-4xl font-medium text-[#797979] mb-4">Add-On Services</h2>
-                    <p className="text-xl text-[#797979] max-w-2xl mx-auto">Customize your cleaning package with these convenient extras.</p>
+                    <p className="md:text-xl text-[#797979] max-w-2xl mx-auto">Customize your cleaning package with these convenient extras.</p>
                 </div>
 
                 {/* Services Grid */}

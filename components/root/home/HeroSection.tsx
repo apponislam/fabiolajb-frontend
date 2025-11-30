@@ -8,7 +8,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-black/60"></div>
 
             {/* Content */}
-            <div className="relative z-10 md:mx-20 grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-12 items-center">
+            <div className="relative z-10 container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-12 items-center">
                 {/* Left Side - Content */}
                 <div className="space-y-6 text-white">
                     <h1 className="text-4xl md:text-5xl font-bold leading-tight">

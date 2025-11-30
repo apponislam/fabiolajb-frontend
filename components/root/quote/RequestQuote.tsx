@@ -39,7 +39,7 @@ const RequestQuote = () => {
             <div className="container mx-auto">
                 {/* Header Section */}
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl md:text-4xl font-medium text-[#364153] mb-6">
+                    <h1 className="text-3xl md:text-4xl font-medium text-[#364153] mb-6">
                         <span className="text-[#3CB371]">Provide</span> your details and get a<br />
                         tailored quote
                         <span className="text-[#3CB371]"> instantly.</span>

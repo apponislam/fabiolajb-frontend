@@ -24,7 +24,7 @@ export function TrafficByDeviceChart() {
             <CardHeader className="pb-4">
                 <CardTitle className="text-lg font-semibold">Traffic by Device</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pl-0">
                 <ResponsiveContainer width="100%" height={300}>
                     <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                         <XAxis dataKey="device" tick={{ fill: "#6B7280", fontSize: 12 }} axisLine={false} tickLine={false} />

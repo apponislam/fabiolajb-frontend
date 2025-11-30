@@ -96,7 +96,7 @@ export function ServiceList({ services = [], itemsPerPage = 5 }: ServiceListProp
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
                     <div className="text-sm text-muted-foreground">
                         Showing {startIndex + 1} to {Math.min(endIndex, serviceList.length)} of {serviceList.length} results
                     </div>

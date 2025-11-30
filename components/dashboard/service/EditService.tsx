@@ -35,7 +35,7 @@ export function EditServiceModal({ service, open, onOpenChange, onSave }: EditSe
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-md">
+            <DialogContent className="w-[95vw] max-w-[95vw] p-4 sm:max-w-md sm:p-6 rounded-xl">
                 <DialogHeader className="flex flex-row items-center justify-between">
                     <DialogTitle className="text-xl font-semibold">Edit Service</DialogTitle>
                     {/* <button onClick={() => onOpenChange(false)} className="text-gray-500 hover:text-gray-700">

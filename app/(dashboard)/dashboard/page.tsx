@@ -7,7 +7,6 @@ const page = () => {
     return (
         <div className="p-4 md:p-6">
             <QuoteCard></QuoteCard>
-            {/* <QuoteChart></QuoteChart> */}
             <QuoteRequestChart></QuoteRequestChart>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <TrafficByLocationChart></TrafficByLocationChart>
