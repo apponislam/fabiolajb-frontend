@@ -1,5 +1,6 @@
+import { CleaningServiceModal } from "@/components/ServiceCard";
 import Image from "next/image";
-import { GoArrowUpRight } from "react-icons/go";
+// import { GoArrowUpRight } from "react-icons/go";
 
 const HomeServices = () => {
     const services = [
@@ -41,10 +42,11 @@ const HomeServices = () => {
                             <Image src={service.image} alt={service.title} width={400} height={300} className="w-full h-64 object-cover rounded-[30px] mb-4" />
                             <h3 className="text-2xl font-bold text-gray-800 mb-4">{service.title}</h3>
                             <p className="text-gray-600 mb-6">{service.description}</p>
-                            <button className="flex items-center gap-2 border border-[#3CB371] text-[#3CB371] px-6 py-3 rounded-lg font-semibold hover:bg-[#3CB371] hover:text-white transition-colors">
+                            {/* <button className="flex items-center gap-2 border border-[#3CB371] text-[#3CB371] px-6 py-3 rounded-lg font-semibold hover:bg-[#3CB371] hover:text-white transition-colors">
                                 Learn More
                                 <GoArrowUpRight />
-                            </button>
+                            </button> */}
+                            <CleaningServiceModal></CleaningServiceModal>
                         </div>
                     ))}
                 </div>
