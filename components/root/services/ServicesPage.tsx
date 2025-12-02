@@ -69,7 +69,7 @@ const ServicesPage = () => {
                         We Don&apos;t Just Clean —
                         <span className="text-[#3CB371]">
                             {" "}
-                            We Care for <br /> Every Corner of Your{" "}
+                            We Care for <br className="hidden xl:block" /> Every Corner of Your{" "}
                         </span>
                         Business.
                     </h1>
