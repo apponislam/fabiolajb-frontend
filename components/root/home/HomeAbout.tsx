@@ -35,7 +35,7 @@ const HomeAboutUs = () => {
                             </div>
 
                             <div className="absolute bottom-0 right-0">
-                                <div className="relative bg-white p-4 md:p-8 w-64 md:w-auto md:max-w-sm text-[#797979] rounded-[40px]">
+                                <div className="relative bg-white p-4 md:p-8 w-64 md:w-auto md:max-w-sm text-[#797979] rounded-[40px] rounded-tr-none rounded-bl-none">
                                     <p className="text-[12px] md:text-sm leading-relaxed">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@ const HomeAboutUs = () => {
                             </div>
 
                             <div className="absolute top-0 left-0">
-                                <div className="relative bg-white p-4 md:p-8 w-64 md:w-auto md:max-w-sm text-[#797979] rounded-[40px]">
+                                <div className="relative bg-white p-4 md:p-8 w-64 md:w-auto md:max-w-sm text-[#797979] rounded-[40px] rounded-bl-none rounded-tr-none">
                                     <p className="text-[12px] md:text-sm leading-relaxed">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
                                 </div>
                             </div>
