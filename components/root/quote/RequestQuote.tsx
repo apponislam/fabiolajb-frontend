@@ -1,15 +1,22 @@
 "use client";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { BsSend } from "react-icons/bs";
+import { CalendarIcon, Clock } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { format } from "date-fns";
+import { useState } from "react";
 
 const quoteSchema = z.object({
     fullName: z.string().min(1, "Full name is required"),
     cleaningFrequency: z.string().min(1, "Cleaning frequency is required"),
     email: z.string().email("Invalid email address"),
-    preferredDateTime: z.string().min(1, "Preferred date and time is required"),
+    preferredDateTime: z.date().refine((date) => date !== undefined && date !== null, {
+        message: "Preferred date and time is required",
+    }),
     phoneNumber: z.string().min(1, "Phone number is required"),
     serviceAddress: z.string().min(1, "Service address is required"),
     businessName: z.string().optional(),
@@ -21,10 +28,14 @@ const quoteSchema = z.object({
 type QuoteFormData = z.infer<typeof quoteSchema>;
 
 const RequestQuote = () => {
+    const [selectedDate, setSelectedDate] = useState<Date>();
+    const [selectedTime, setSelectedTime] = useState("9:00 AM");
+
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm<QuoteFormData>({
         resolver: zodResolver(quoteSchema),
     });
@@ -34,22 +45,68 @@ const RequestQuote = () => {
         // Handle form submission
     };
 
+    const handleDateSelect = (date: Date | undefined) => {
+        if (date) {
+            const [hours, minutes] = convertTimeStringTo24Hour(selectedTime);
+            date.setHours(hours, minutes, 0, 0);
+            setSelectedDate(date);
+            setValue("preferredDateTime", date, { shouldValidate: true });
+        }
+    };
+
+    const handleTimeChange = (time: string) => {
+        setSelectedTime(time);
+        if (selectedDate) {
+            const [hours, minutes] = convertTimeStringTo24Hour(time);
+            const updatedDate = new Date(selectedDate);
+            updatedDate.setHours(hours, minutes, 0, 0);
+            setValue("preferredDateTime", updatedDate, { shouldValidate: true });
+        }
+    };
+
+    const convertTimeStringTo24Hour = (timeStr: string): [number, number] => {
+        const [timePart, modifier] = timeStr.split(" ");
+        const [hoursStr, minutesStr] = timePart.split(":");
+        let hours = parseInt(hoursStr);
+        const minutes = parseInt(minutesStr);
+
+        if (modifier === "PM" && hours < 12) hours += 12;
+        if (modifier === "AM" && hours === 12) hours = 0;
+
+        return [hours, minutes];
+    };
+
+    const formatDateTime = (date: Date | undefined): string => {
+        if (!date) return "mm/dd/yyyy --:-- --";
+        return format(date, "MM/dd/yyyy hh:mm a");
+    };
+
+    // Generate time options from 8 AM to 5 PM
+    const timeOptions = Array.from({ length: 10 }, (_, i) => {
+        const hour = 8 + i;
+        const period = hour >= 12 ? "PM" : "AM";
+        const displayHour = hour > 12 ? hour - 12 : hour;
+        return {
+            value: `${displayHour}:00 ${period}`,
+            label: `${displayHour}:00 ${period}`,
+        };
+    });
+
     return (
         <div className="min-h-screen bg-white py-16 px-4 sm:px-6 lg:px-8">
             <div className="container mx-auto">
                 {/* Header Section */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl md:text-4xl font-medium text-[#364153] mb-6">
-                        <span className="text-[#3CB371]">Provide</span> your details and get a<br />
+                        <span className="text-[#3CB371]">Provide</span> your details and get a<br className="hidden xl:block" />
                         tailored quote
                         <span className="text-[#3CB371]"> instantly.</span>
                     </h1>
                     <p className="text-[14px] text-[#797979] mx-auto">
-                        We&apos;re more than just a cleaning company – we&apos;re your partners in creating clean, <br /> healthy, and stress-free spaces where you can truly breathe easy.
+                        We&apos;re more than just a cleaning company – we&apos;re your partners in creating clean, <br className="hidden xl:block" /> healthy, and stress-free spaces where you can truly breathe easy.
                     </p>
                 </div>
 
-                {/* Form Section */}
                 {/* Form Section */}
                 <div className="container mx-auto">
                     <h2 className="text-2xl md:text-3xl font-medium text-[#5E5E5E] mb-8 text-center">Request a Quote</h2>
@@ -64,13 +121,16 @@ const RequestQuote = () => {
                             </div>
                             <div>
                                 <label className="block text-[#364153] font-semibold mb-2">Cleaning Frequency</label>
-                                <select {...register("cleaningFrequency")} className="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent">
-                                    <option value="">Select frequency</option>
-                                    <option value="one-time">One-time</option>
-                                    <option value="weekly">Weekly</option>
-                                    <option value="bi-weekly">Bi-weekly</option>
-                                    <option value="monthly">Monthly</option>
-                                </select>
+                                <Select onValueChange={(value) => setValue("cleaningFrequency", value)}>
+                                    <SelectTrigger className="w-full px-4 py-6 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent">
+                                        <SelectValue placeholder="Select frequency" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white border-[#E5E7EB]">
+                                        <SelectItem value="daily">Daily</SelectItem>
+                                        <SelectItem value="weekly">Weekly</SelectItem>
+                                        <SelectItem value="monthly">Monthly</SelectItem>
+                                    </SelectContent>
+                                </Select>
                                 {errors.cleaningFrequency && <p className="text-red-500 text-sm mt-1">{errors.cleaningFrequency.message}</p>}
                             </div>
                         </div>
@@ -84,7 +144,38 @@ const RequestQuote = () => {
                             </div>
                             <div>
                                 <label className="block text-[#364153] font-semibold mb-2">Preferred Date & Time</label>
-                                <input {...register("preferredDateTime")} type="text" placeholder="mm/dd/yyyy --:-- --" className="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent" />
+                                <Popover>
+                                    <PopoverTrigger asChild>
+                                        <button type="button" className="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg text-left bg-white focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent flex justify-between items-center">
+                                            <span className="flex items-center gap-2">
+                                                <CalendarIcon className="h-4 w-4" />
+                                                {formatDateTime(selectedDate)}
+                                            </span>
+                                            <Clock className="h-4 w-4 opacity-50" />
+                                        </button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-4 bg-white border-[#E5E7EB] space-y-4">
+                                        <div>
+                                            <h3 className="text-[#364153] font-medium mb-2">Select Date</h3>
+                                            <Calendar mode="single" selected={selectedDate} onSelect={handleDateSelect} disabled={(date) => date < new Date()} initialFocus className="bg-white" />
+                                        </div>
+                                        <div>
+                                            <h3 className="text-[#364153] font-medium mb-2">Select Time</h3>
+                                            <Select value={selectedTime} onValueChange={handleTimeChange}>
+                                                <SelectTrigger className="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent">
+                                                    <SelectValue placeholder="Select time" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-white border-[#E5E7EB]">
+                                                    {timeOptions.map((option) => (
+                                                        <SelectItem key={option.value} value={option.value}>
+                                                            {option.label}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+                                    </PopoverContent>
+                                </Popover>
                                 {errors.preferredDateTime && <p className="text-red-500 text-sm mt-1">{errors.preferredDateTime.message}</p>}
                             </div>
                         </div>
@@ -118,13 +209,17 @@ const RequestQuote = () => {
                         {/* Service Type */}
                         <div>
                             <label className="block text-[#364153] font-semibold mb-2">Service Type</label>
-                            <select {...register("serviceType")} className="w-full px-4 py-3 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent">
-                                <option value="">Select a service</option>
-                                <option value="office-cleaning">Office Cleaning</option>
-                                <option value="spring-cleaning">Spring Cleaning</option>
-                                <option value="house-cleaning">House Cleaning</option>
-                                <option value="commercial-cleaning">Commercial Cleaning</option>
-                            </select>
+                            <Select onValueChange={(value) => setValue("serviceType", value)}>
+                                <SelectTrigger className="w-full px-4 py-6 border border-[#E5E7EB] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#3CB371] focus:border-transparent">
+                                    <SelectValue placeholder="Select a service" />
+                                </SelectTrigger>
+                                <SelectContent className="bg-white border-[#E5E7EB]">
+                                    <SelectItem value="house">House Cleaning</SelectItem>
+                                    <SelectItem value="office">Office Cleaning</SelectItem>
+                                    <SelectItem value="kitchen">Kitchen Cleaning</SelectItem>
+                                    <SelectItem value="washroom">Washroom Cleaning</SelectItem>
+                                </SelectContent>
+                            </Select>
                             {errors.serviceType && <p className="text-red-500 text-sm mt-1">{errors.serviceType.message}</p>}
                         </div>
 

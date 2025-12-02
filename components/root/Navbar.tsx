@@ -92,7 +92,7 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile Menu Button */}
-                <button className="md:hidden flex flex-col space-y-1" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <button className="md:hidden flex flex-col space-y-1 cursor-pointer" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                     <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>
                     <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>
                     <span className={`w-6 h-0.5 ${isHomePage || scrolled ? "bg-white" : "bg-black"}`}></span>

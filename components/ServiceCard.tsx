@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { GoArrowUpRight } from "react-icons/go";
+import Link from "next/link";
 
 export function CleaningServiceModal() {
     const [open, setOpen] = useState(false);
@@ -41,7 +42,9 @@ export function CleaningServiceModal() {
                         </div>
 
                         <div className="flex items-center justify-end">
-                            <Button className="bg-[#3CB371] hover:bg-[#3CB371] text-white font-semibold py-2 md:py-4 h-auto rounded-lg text-base px-8 md:px-14 cursor-pointer">Book</Button>
+                            <Link href="/checkout">
+                                <Button className="bg-[#3CB371] hover:bg-[#3CB371] text-white font-semibold py-2 md:py-4 h-auto rounded-lg text-base px-8 md:px-14 cursor-pointer">Book</Button>
+                            </Link>
                         </div>
                     </div>
                 </DialogContent>

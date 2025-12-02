@@ -17,8 +17,8 @@ const HeroSection = () => {
                         <span className="text-[#3CB371]">We&apos;ll Handle</span> the Mess.
                     </h1>
                     <p className="text-white/70 text-lg leading-relaxed">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-                    <button className="flex items-center gap-3 bg-[#3CB371] text-white px-8 py-4 rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors">
-                        <MdAddCall className="text-white" />
+                    <button className="flex items-center gap-3 bg-[#3CB371] text-white px-8 py-4 rounded-[30px] font-semibold hover:bg-[#35a065] transition-colors cursor-pointer">
+                        <MdAddCall className="text-white text-2xl" />
                         Call Now
                     </button>
                 </div>

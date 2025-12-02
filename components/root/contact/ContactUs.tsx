@@ -36,7 +36,7 @@ const ContactPage = () => {
                 {/* Header Section */}
                 <div className="text-center mb-12">
                     <h1 className="text-4xl md:text-4xl font-medium text-[#364153] mb-6">
-                        <span className="text-[#3CB371]">Provide</span> your details and get a<br />
+                        <span className="text-[#3CB371]">Provide</span> your details and get a<br className="hidden xl:block" />
                         tailored quote
                         <span className="text-[#3CB371]"> instantly.</span>
                     </h1>

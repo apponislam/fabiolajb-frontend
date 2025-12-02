@@ -9,7 +9,7 @@ const OurStory = () => {
                     We Don&apos;t Just Clean —{" "}
                     <span className="text-[#3CB371]">
                         We Care for
-                        <br />
+                        <br className="hidden xl:block" />
                         Every Corner of Your
                     </span>{" "}
                     Business.
