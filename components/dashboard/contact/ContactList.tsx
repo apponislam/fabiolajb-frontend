@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Download, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { inquiryData } from "./contactDemoData";
 
 const ITEMS_PER_PAGE = 10;
@@ -20,15 +20,15 @@ export function InquiryTable() {
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const paginatedData = filteredData.slice(startIndex, endIndex);
 
-    const handleExport = () => {
-        const csv = [["Full Name", "Phone", "Email", "Message"], ...filteredData.map((item) => [item.fullName, item.phone, item.email, item.message])].map((row) => row.map((cell) => `"${cell}"`).join(",")).join("\n");
-        const blob = new Blob([csv], { type: "text/csv" });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "inquiries.csv";
-        a.click();
-    };
+    // const handleExport = () => {
+    //     const csv = [["Full Name", "Phone", "Email", "Message"], ...filteredData.map((item) => [item.fullName, item.phone, item.email, item.message])].map((row) => row.map((cell) => `"${cell}"`).join(",")).join("\n");
+    //     const blob = new Blob([csv], { type: "text/csv" });
+    //     const url = window.URL.createObjectURL(blob);
+    //     const a = document.createElement("a");
+    //     a.href = url;
+    //     a.download = "inquiries.csv";
+    //     a.click();
+    // };
 
     return (
         <div className="w-full space-y-4">
@@ -42,10 +42,10 @@ export function InquiryTable() {
                     }}
                     className="max-w-xs"
                 />
-                <Button onClick={handleExport} className="bg-[#3CB371] hover:bg-[#3CB371] text-white gap-2 rounded-[20px]">
+                {/* <Button onClick={handleExport} className="bg-[#3CB371] hover:bg-[#3CB371] text-white gap-2 rounded-[20px]">
                     <Download size={16} />
                     Export
-                </Button>
+                </Button> */}
             </div>
 
             <div className="overflow-x-auto border rounded-lg">
