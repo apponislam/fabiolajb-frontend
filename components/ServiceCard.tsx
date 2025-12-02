@@ -42,7 +42,7 @@ export function CleaningServiceModal() {
                         </div>
 
                         <div className="flex items-center justify-end">
-                            <Link href="/checkout">
+                            <Link href="/quote">
                                 <Button className="bg-[#3CB371] hover:bg-[#3CB371] text-white font-semibold py-2 md:py-4 h-auto rounded-lg text-base px-8 md:px-14 cursor-pointer">Book</Button>
                             </Link>
                         </div>
