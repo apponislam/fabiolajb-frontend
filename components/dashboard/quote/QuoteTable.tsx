@@ -5,14 +5,16 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Search, Download, MoreVertical, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, MoreVertical, ChevronLeft, ChevronRight } from "lucide-react";
 import { customerData } from "./demoData";
+import { InvoiceModal } from "./QuoteDetailsModal";
 
 const ITEMS_PER_PAGE = 10;
 
 export function CustomerTable() {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const filteredData = useMemo(() => {
         return customerData.filter((customer) => customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) || customer.email.toLowerCase().includes(searchTerm.toLowerCase()) || customer.phone.includes(searchTerm) || customer.address.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -28,18 +30,18 @@ export function CustomerTable() {
         setCurrentPage(1);
     };
 
-    const handleExport = () => {
-        const headers = ["Full Name", "Email", "Phone", "Address", "Status"];
-        const csvContent = [headers.join(","), ...filteredData.map((customer) => [customer.fullName, customer.email, customer.phone, customer.address, customer.status].join(","))].join("\n");
+    // const handleExport = () => {
+    //     const headers = ["Full Name", "Email", "Phone", "Address", "Status"];
+    //     const csvContent = [headers.join(","), ...filteredData.map((customer) => [customer.fullName, customer.email, customer.phone, customer.address, customer.status].join(","))].join("\n");
 
-        const element = document.createElement("a");
-        element.setAttribute("href", `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`);
-        element.setAttribute("download", "customers.csv");
-        element.style.display = "none";
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
-    };
+    //     const element = document.createElement("a");
+    //     element.setAttribute("href", `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`);
+    //     element.setAttribute("download", "customers.csv");
+    //     element.style.display = "none";
+    //     document.body.appendChild(element);
+    //     element.click();
+    //     document.body.removeChild(element);
+    // };
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -60,10 +62,10 @@ export function CustomerTable() {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input placeholder="Search" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10" />
                 </div>
-                <Button onClick={handleExport} className="gap-2 bg-[#3CB371] hover:bg-green-700 rounded-[20px]">
+                {/* <Button onClick={handleExport} className="gap-2 bg-[#3CB371] hover:bg-green-700 rounded-[20px]">
                     <Download className="h-4 w-4" />
                     Export
-                </Button>
+                </Button> */}
             </div>
 
             {/* Table */}
@@ -97,7 +99,7 @@ export function CustomerTable() {
                                             </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
-                                            <DropdownMenuItem>View Details</DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => setIsModalOpen(true)}>View Details</DropdownMenuItem>
                                             <DropdownMenuItem>Send Payment Mail</DropdownMenuItem>
                                             <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
                                         </DropdownMenuContent>
@@ -108,6 +110,8 @@ export function CustomerTable() {
                     </TableBody>
                 </Table>
             </div>
+
+            <InvoiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
             {/* Pagination */}
             <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
