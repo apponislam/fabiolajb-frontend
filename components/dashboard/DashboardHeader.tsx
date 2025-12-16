@@ -4,8 +4,13 @@ import { MenuItems } from "@/lib/constants/navigation";
 import { SidebarTrigger } from "../ui/sidebar";
 import { TfiReload } from "react-icons/tfi";
 import Link from "next/link";
+import { selectCurrentUser } from "@/redux/features/auth/authSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export function DashboardHeader() {
+    const user = useSelector((state: RootState) => selectCurrentUser(state));
+    console.log(user);
     const pathname = usePathname();
     const currentItem = MenuItems.find((item) => pathname === item.url) || MenuItems[0];
     return (
@@ -26,13 +31,9 @@ export function DashboardHeader() {
                     </Link>
 
                     <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                            <span className="text-sm font-medium text-gray-700">MR</span>
-                        </div>
-
                         <div className="flex flex-col">
-                            <span className="text-sm font-bold text-[#404040]">Moni Roy</span>
-                            <span className="text-xs text-gray-500 text-left">Admin</span>
+                            <span className="text-sm font-bold text-[#404040]">{user?.name || "N/A"}</span>
+                            <span className="text-xs text-gray-500 text-left capitalize">{user?.role || "N/A"}</span>
                         </div>
                     </div>
                 </div>
