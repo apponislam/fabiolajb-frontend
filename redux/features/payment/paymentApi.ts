@@ -9,7 +9,22 @@ const paymentApi = baseApi.injectEndpoints({
             query: (id) => `/payment/${id}`,
         }),
         getAllPayments: builder.query({
-            query: () => "/payment",
+            query: (params?: { page?: number; limit?: number; searchTerm?: string }) => {
+                const queryParams: any = {
+                    page: params?.page || 1,
+                    limit: params?.limit || 10,
+                };
+
+                if (params?.searchTerm) {
+                    queryParams.searchTerm = params.searchTerm;
+                }
+
+                return {
+                    url: "/payment",
+                    method: "GET",
+                    params: queryParams,
+                };
+            },
         }),
     }),
 });

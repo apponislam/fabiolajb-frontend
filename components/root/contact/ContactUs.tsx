@@ -6,9 +6,11 @@ import { z } from "zod";
 import { BsSend, BsEnvelope } from "react-icons/bs";
 import { LuPhoneCall } from "react-icons/lu";
 import { IoLocationSharp } from "react-icons/io5";
+import { toast } from "sonner";
+import { useCreateContactMutation } from "@/redux/features/contact/contactApi";
 
 const contactSchema = z.object({
-    fullName: z.string().min(1, "Full name is required"),
+    name: z.string().min(1, "Full name is required"),
     email: z.string().email("Invalid email address"),
     phone: z.string().min(1, "Phone number is required"),
     message: z.string().min(1, "Message is required"),
@@ -17,17 +19,29 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 
 const ContactPage = () => {
+    const [createContact, { isLoading }] = useCreateContactMutation();
+
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<ContactFormData>({
         resolver: zodResolver(contactSchema),
     });
 
-    const onSubmit = (data: ContactFormData) => {
-        console.log(data);
-        // Handle form submission
+    const onSubmit = async (data: ContactFormData) => {
+        try {
+            const result = await createContact(data).unwrap();
+            if (result.success) {
+                toast.success("Message sent successfully!");
+                reset();
+            } else {
+                toast.error(result.message || "Failed to send message");
+            }
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to send message");
+        }
     };
 
     return (
@@ -97,8 +111,8 @@ const ContactPage = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-[#364153] font-semibold mb-2 text-sm">Full name</label>
-                                    <input {...register("fullName")} type="text" placeholder="Your full name" className="w-full px-3 py-2 border-b-2 border-[#E5E7EB] bg-white focus:outline-none focus:border-[#3CB371] transition-colors" />
-                                    {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName.message}</p>}
+                                    <input {...register("name")} type="text" placeholder="Your full name" className="w-full px-3 py-2 border-b-2 border-[#E5E7EB] bg-white focus:outline-none focus:border-[#3CB371] transition-colors" />
+                                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                                 </div>
                                 <div>
                                     <label className="block text-[#364153] font-semibold mb-2 text-sm">E-mail</label>
@@ -121,8 +135,8 @@ const ContactPage = () => {
                                 </div>
                             </div>
 
-                            <button type="submit" className="w-full bg-[#3CB371] text-white py-2 rounded-lg font-semibold hover:bg-[#2E8B57] transition-colors duration-200 flex items-center justify-center gap-2 mt-6">
-                                Send Message <BsSend />
+                            <button type="submit" disabled={isLoading} className="w-full bg-[#3CB371] text-white py-2 rounded-lg font-semibold hover:bg-[#2E8B57] transition-colors duration-200 flex items-center justify-center gap-2 mt-6 disabled:opacity-50 disabled:cursor-not-allowed">
+                                {isLoading ? "Sending..." : "Send Message"} <BsSend />
                             </button>
                         </form>
                     </div>
