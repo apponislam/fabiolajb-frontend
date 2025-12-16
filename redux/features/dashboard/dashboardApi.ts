@@ -5,6 +5,7 @@ const dashboardApi = baseApi.injectEndpoints({
         // GET: Dashboard statistics
         getDashboardStatistics: builder.query({
             query: () => "/dashboard/statistics",
+            providesTags: ["Dashboard"],
         }),
     }),
 });
