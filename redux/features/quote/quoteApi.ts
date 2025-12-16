@@ -9,23 +9,38 @@ const quoteApi = baseApi.injectEndpoints({
                 method: "POST",
                 body: quoteData,
             }),
+            invalidatesTags: ["Quote"],
         }),
 
         // GET: All quotes with pagination
         getAllQuotes: builder.query({
-            query: (params?: { page?: number; limit?: number }) => ({
-                url: "/quote",
-                method: "GET",
-                params: {
+            query: (params?: { page?: number; limit?: number; email?: string; searchTerm?: string }) => {
+                const queryParams: any = {
                     page: params?.page || 1,
                     limit: params?.limit || 10,
-                },
-            }),
+                };
+
+                if (params?.email) {
+                    queryParams.email = params.email;
+                }
+
+                if (params?.searchTerm) {
+                    queryParams.searchTerm = params.searchTerm;
+                }
+
+                return {
+                    url: "/quote",
+                    method: "GET",
+                    params: queryParams,
+                };
+            },
+            providesTags: ["Quote"],
         }),
 
         // GET: Single quote
         getQuoteById: builder.query({
             query: (id) => `/quote/${id}`,
+            providesTags: ["Quote"],
         }),
 
         // PATCH: Update quote
@@ -35,6 +50,7 @@ const quoteApi = baseApi.injectEndpoints({
                 method: "PATCH",
                 body: data,
             }),
+            invalidatesTags: ["Quote"],
         }),
 
         // DELETE: Quote
@@ -43,6 +59,7 @@ const quoteApi = baseApi.injectEndpoints({
                 url: `/quote/${id}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ["Quote"],
         }),
 
         // POST: Send payment link
@@ -51,6 +68,7 @@ const quoteApi = baseApi.injectEndpoints({
                 url: `/quote/send-payment-link/${id}`,
                 method: "POST",
             }),
+            invalidatesTags: ["Quote"],
         }),
     }),
 });

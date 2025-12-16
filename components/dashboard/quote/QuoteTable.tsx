@@ -1,13 +1,144 @@
+// "use client";
+
+// import { useState, useMemo } from "react";
+// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+// import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+// import { Search, MoreVertical, ChevronLeft, ChevronRight } from "lucide-react";
+// import { customerData } from "./demoData";
+// import { InvoiceModal } from "./QuoteDetailsModal";
+
+// const ITEMS_PER_PAGE = 10;
+
+// export function CustomerTable() {
+//     const [searchTerm, setSearchTerm] = useState("");
+//     const [currentPage, setCurrentPage] = useState(1);
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+
+//     const filteredData = useMemo(() => {
+//         return customerData.filter((customer) => customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) || customer.email.toLowerCase().includes(searchTerm.toLowerCase()) || customer.phone.includes(searchTerm) || customer.address.toLowerCase().includes(searchTerm.toLowerCase()));
+//     }, [searchTerm]);
+
+//     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+//     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+//     const endIndex = startIndex + ITEMS_PER_PAGE;
+//     const paginatedData = filteredData.slice(startIndex, endIndex);
+
+//     const handleSearch = (value: string) => {
+//         setSearchTerm(value);
+//         setCurrentPage(1);
+//     };
+
+//     const getStatusColor = (status: string) => {
+//         switch (status) {
+//             case "Paid":
+//                 return "text-[#3CB371] bg-green-50";
+//             case "Unpaid":
+//                 return "text-orange-600 bg-orange-50";
+//             default:
+//                 return "text-gray-500";
+//         }
+//     };
+
+//     return (
+//         <div className="w-full space-y-4">
+//             {/* Search and Export */}
+//             <div className="flex items-center justify-between gap-4">
+//                 <div className="relative flex-1 max-w-sm">
+//                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+//                     <Input placeholder="Search" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10" />
+//                 </div>
+//             </div>
+
+//             {/* Table */}
+//             <div className="border rounded-lg overflow-hidden">
+//                 <Table>
+//                     <TableHeader>
+//                         <TableRow className="bg-[#3CB371] hover:bg-[#3CB371]">
+//                             <TableHead className="text-white font-semibold">Full Name</TableHead>
+//                             <TableHead className="text-white font-semibold">Email</TableHead>
+//                             <TableHead className="text-white font-semibold">Phone</TableHead>
+//                             <TableHead className="text-white font-semibold">Address</TableHead>
+//                             <TableHead className="text-white font-semibold">Status</TableHead>
+//                             <TableHead className="text-white font-semibold text-center">Action</TableHead>
+//                         </TableRow>
+//                     </TableHeader>
+//                     <TableBody>
+//                         {paginatedData.map((customer) => (
+//                             <TableRow key={customer.id}>
+//                                 <TableCell className="font-medium">{customer.fullName}</TableCell>
+//                                 <TableCell>{customer.email}</TableCell>
+//                                 <TableCell>{customer.phone}</TableCell>
+//                                 <TableCell>{customer.address}</TableCell>
+//                                 <TableCell>
+//                                     <span className={`px-3 py-1 rounded ${getStatusColor(customer.status)}`}>{customer.status}</span>
+//                                 </TableCell>
+//                                 <TableCell className="text-center">
+//                                     <DropdownMenu>
+//                                         <DropdownMenuTrigger asChild>
+//                                             <Button variant="ghost" size="sm">
+//                                                 <MoreVertical className="h-4 w-4" />
+//                                             </Button>
+//                                         </DropdownMenuTrigger>
+//                                         <DropdownMenuContent align="end">
+//                                             <DropdownMenuItem onClick={() => setIsModalOpen(true)}>View Details</DropdownMenuItem>
+//                                             <DropdownMenuItem>Send Payment Mail</DropdownMenuItem>
+//                                             <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
+//                                         </DropdownMenuContent>
+//                                     </DropdownMenu>
+//                                 </TableCell>
+//                             </TableRow>
+//                         ))}
+//                     </TableBody>
+//                 </Table>
+//             </div>
+
+//             <InvoiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
+//             {/* Pagination */}
+//             <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
+//                 <div className="text-sm text-muted-foreground">
+//                     Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)} of {filteredData.length} results
+//                 </div>
+//                 <div className="flex items-center gap-2">
+//                     <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
+//                         <ChevronLeft className="h-4 w-4" />
+//                         Previous
+//                     </Button>
+
+//                     {/* Page Numbers */}
+//                     <div className="flex gap-1">
+//                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+//                             <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
+//                                 {page}
+//                             </Button>
+//                         ))}
+//                     </div>
+
+//                     <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
+//                         Next
+//                         <ChevronRight className="h-4 w-4" />
+//                     </Button>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Search, MoreVertical, ChevronLeft, ChevronRight } from "lucide-react";
-import { customerData } from "./demoData";
+import { Search, MoreVertical, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { InvoiceModal } from "./QuoteDetailsModal";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useGetAllQuotesQuery, useSendPaymentLinkMutation, useDeleteQuoteMutation } from "@/redux/features/quote/quoteApi";
+import { toast } from "sonner";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -15,44 +146,176 @@ export function CustomerTable() {
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [selectedQuote, setSelectedQuote] = useState<any>(null);
+    const [quoteToDelete, setQuoteToDelete] = useState<string | null>(null);
 
-    const filteredData = useMemo(() => {
-        return customerData.filter((customer) => customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) || customer.email.toLowerCase().includes(searchTerm.toLowerCase()) || customer.phone.includes(searchTerm) || customer.address.toLowerCase().includes(searchTerm.toLowerCase()));
-    }, [searchTerm]);
+    // Use the query hook with search parameters
+    const { data, isLoading, error, refetch } = useGetAllQuotesQuery({
+        page: currentPage,
+        limit: ITEMS_PER_PAGE,
+        searchTerm: searchTerm,
+    });
 
-    const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIndex = startIndex + ITEMS_PER_PAGE;
-    const paginatedData = filteredData.slice(startIndex, endIndex);
+    const [sendPaymentLink, { isLoading: isSendingPayment }] = useSendPaymentLinkMutation();
+    const [deleteQuote, { isLoading: isDeleting }] = useDeleteQuoteMutation();
+
+    const quotes = data?.data || [];
+    const meta = data?.meta || {
+        total: 0,
+        page: 1,
+        totalPage: 1,
+        limit: ITEMS_PER_PAGE,
+    };
 
     const handleSearch = (value: string) => {
         setSearchTerm(value);
-        setCurrentPage(1);
+        setCurrentPage(1); // Reset to first page on new search
     };
-
-    // const handleExport = () => {
-    //     const headers = ["Full Name", "Email", "Phone", "Address", "Status"];
-    //     const csvContent = [headers.join(","), ...filteredData.map((customer) => [customer.fullName, customer.email, customer.phone, customer.address, customer.status].join(","))].join("\n");
-
-    //     const element = document.createElement("a");
-    //     element.setAttribute("href", `data:text/csv;charset=utf-8,${encodeURIComponent(csvContent)}`);
-    //     element.setAttribute("download", "customers.csv");
-    //     element.style.display = "none";
-    //     document.body.appendChild(element);
-    //     element.click();
-    //     document.body.removeChild(element);
-    // };
 
     const getStatusColor = (status: string) => {
         switch (status) {
-            case "Paid":
+            case "paymentCompleted":
                 return "text-[#3CB371] bg-green-50";
-            case "Unpaid":
+            case "pending":
+                return "text-orange-600 bg-orange-50";
+            case "paid":
+                return "text-[#3CB371] bg-green-50";
+            case "unpaid":
                 return "text-orange-600 bg-orange-50";
             default:
-                return "text-gray-500";
+                return "text-gray-500 bg-gray-50";
         }
     };
+
+    const getStatusText = (status: string) => {
+        switch (status) {
+            case "paymentCompleted":
+                return "Paid";
+            case "pending":
+                return "Pending";
+            case "paid":
+                return "Paid";
+            case "unpaid":
+                return "Unpaid";
+            default:
+                return status;
+        }
+    };
+
+    const handlePreviousPage = () => {
+        setCurrentPage((prev) => Math.max(1, prev - 1));
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage((prev) => Math.min(meta.totalPage, prev + 1));
+    };
+
+    const handlePageClick = (page: number) => {
+        setCurrentPage(page);
+    };
+
+    const handleSendPaymentLink = async (quoteId: string) => {
+        try {
+            const result = await sendPaymentLink(quoteId).unwrap();
+
+            if (result.success) {
+                toast.success(result.message || "Payment link sent successfully");
+                refetch();
+            } else {
+                toast.error(result.message || "Failed to send payment link");
+            }
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to send payment link");
+        }
+    };
+
+    const handleDeleteClick = (quoteId: string) => {
+        setQuoteToDelete(quoteId);
+        setIsDeleteDialogOpen(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (!quoteToDelete) return;
+
+        try {
+            const result = await deleteQuote(quoteToDelete).unwrap();
+
+            if (result.success) {
+                toast.success(result.message || "Quote deleted successfully");
+                refetch();
+            } else {
+                toast.error(result.message || "Failed to delete quote");
+            }
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to delete quote");
+        } finally {
+            setIsDeleteDialogOpen(false);
+            setQuoteToDelete(null);
+        }
+    };
+
+    const handleCancelDelete = () => {
+        setIsDeleteDialogOpen(false);
+        setQuoteToDelete(null);
+    };
+
+    const getPaginationButtons = () => {
+        const buttons = [];
+        const maxVisibleButtons = 5;
+
+        if (meta.totalPage <= maxVisibleButtons) {
+            for (let i = 1; i <= meta.totalPage; i++) {
+                buttons.push(i);
+            }
+        } else {
+            if (currentPage <= 3) {
+                for (let i = 1; i <= 4; i++) {
+                    buttons.push(i);
+                }
+                buttons.push("ellipsis");
+                buttons.push(meta.totalPage);
+            } else if (currentPage >= meta.totalPage - 2) {
+                buttons.push(1);
+                buttons.push("ellipsis");
+                for (let i = meta.totalPage - 3; i <= meta.totalPage; i++) {
+                    buttons.push(i);
+                }
+            } else {
+                buttons.push(1);
+                buttons.push("ellipsis");
+                buttons.push(currentPage - 1);
+                buttons.push(currentPage);
+                buttons.push(currentPage + 1);
+                buttons.push("ellipsis");
+                buttons.push(meta.totalPage);
+            }
+        }
+        return buttons;
+    };
+
+    if (isLoading) {
+        return (
+            <div className="w-full space-y-4">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="relative flex-1 max-w-sm">
+                        <Skeleton className="h-10 w-full" />
+                    </div>
+                </div>
+                <div className="border rounded-lg overflow-hidden">
+                    <div className="space-y-3 p-4">
+                        {[...Array(5)].map((_, i) => (
+                            <Skeleton key={i} className="h-12 w-full" />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return <div className="w-full text-center py-8 text-red-500">Error loading quotes: {(error as any)?.data?.message || "Unknown error"}</div>;
+    }
 
     return (
         <div className="w-full space-y-4">
@@ -60,12 +323,8 @@ export function CustomerTable() {
             <div className="flex items-center justify-between gap-4">
                 <div className="relative flex-1 max-w-sm">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10" />
+                    <Input placeholder="Search by email or name" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10" />
                 </div>
-                {/* <Button onClick={handleExport} className="gap-2 bg-[#3CB371] hover:bg-green-700 rounded-[20px]">
-                    <Download className="h-4 w-4" />
-                    Export
-                </Button> */}
             </div>
 
             {/* Table */}
@@ -82,63 +341,121 @@ export function CustomerTable() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {paginatedData.map((customer) => (
-                            <TableRow key={customer.id}>
-                                <TableCell className="font-medium">{customer.fullName}</TableCell>
-                                <TableCell>{customer.email}</TableCell>
-                                <TableCell>{customer.phone}</TableCell>
-                                <TableCell>{customer.address}</TableCell>
-                                <TableCell>
-                                    <span className={`px-3 py-1 rounded ${getStatusColor(customer.status)}`}>{customer.status}</span>
-                                </TableCell>
-                                <TableCell className="text-center">
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger asChild>
-                                            <Button variant="ghost" size="sm">
-                                                <MoreVertical className="h-4 w-4" />
-                                            </Button>
-                                        </DropdownMenuTrigger>
-                                        <DropdownMenuContent align="end">
-                                            <DropdownMenuItem onClick={() => setIsModalOpen(true)}>View Details</DropdownMenuItem>
-                                            <DropdownMenuItem>Send Payment Mail</DropdownMenuItem>
-                                            <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
+                        {quotes.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                                    No quotes found
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        ) : (
+                            quotes.map((quote: any) => (
+                                <TableRow key={quote._id}>
+                                    <TableCell className="font-medium">{quote.fullName}</TableCell>
+                                    <TableCell>{quote.email}</TableCell>
+                                    <TableCell>{quote.phone}</TableCell>
+                                    <TableCell className="max-w-xs truncate">{quote.serviceAddress}</TableCell>
+                                    <TableCell>
+                                        <span className={`px-3 py-1 rounded ${getStatusColor(quote.status)}`}>{getStatusText(quote.status)}</span>
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                        <DropdownMenu>
+                                            <DropdownMenuTrigger asChild>
+                                                <Button variant="ghost" size="sm">
+                                                    <MoreVertical className="h-4 w-4" />
+                                                </Button>
+                                            </DropdownMenuTrigger>
+                                            <DropdownMenuContent align="end">
+                                                <DropdownMenuItem
+                                                    onClick={() => {
+                                                        setSelectedQuote(quote);
+                                                        setIsModalOpen(true);
+                                                    }}
+                                                >
+                                                    View Details
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => handleSendPaymentLink(quote._id)} disabled={quote.status === "paymentCompleted" || quote.status === "paid" || isSendingPayment}>
+                                                    {isSendingPayment ? "Sending..." : "Send Payment Mail"}
+                                                </DropdownMenuItem>
+                                                <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteClick(quote._id)} disabled={isDeleting}>
+                                                    {isDeleting ? "Deleting..." : "Delete"}
+                                                </DropdownMenuItem>
+                                            </DropdownMenuContent>
+                                        </DropdownMenu>
+                                    </TableCell>
+                                </TableRow>
+                            ))
+                        )}
                     </TableBody>
                 </Table>
             </div>
 
-            <InvoiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            {/* View Details Modal */}
+            <InvoiceModal
+                isOpen={isModalOpen}
+                onClose={() => {
+                    setIsModalOpen(false);
+                    setSelectedQuote(null);
+                }}
+                quoteData={selectedQuote}
+            />
+
+            {/* Delete Confirmation Dialog */}
+            <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>This action cannot be undone. This will permanently delete the quote and remove all associated data.</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel onClick={handleCancelDelete} disabled={isDeleting}>
+                            Cancel
+                        </AlertDialogCancel>
+                        <AlertDialogAction onClick={handleConfirmDelete} disabled={isDeleting} className="bg-red-600 hover:bg-red-700">
+                            {isDeleting ? "Deleting..." : "Delete"}
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
-                <div className="text-sm text-muted-foreground">
-                    Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)} of {filteredData.length} results
-                </div>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
-                        <ChevronLeft className="h-4 w-4" />
-                        Previous
-                    </Button>
-
-                    {/* Page Numbers */}
-                    <div className="flex gap-1">
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                            <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
-                                {page}
-                            </Button>
-                        ))}
+            {meta.totalPage > 0 && (
+                <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
+                    <div className="text-sm text-muted-foreground">
+                        Showing {(currentPage - 1) * meta.limit + 1} to {Math.min(currentPage * meta.limit, meta.total)} of {meta.total} results
                     </div>
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="sm" onClick={handlePreviousPage} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
+                            <ChevronLeft className="h-4 w-4" />
+                            Previous
+                        </Button>
 
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
-                        Next
-                        <ChevronRight className="h-4 w-4" />
-                    </Button>
+                        {/* Page Numbers */}
+                        <div className="flex gap-1">
+                            {getPaginationButtons().map((button, index) => {
+                                if (button === "ellipsis") {
+                                    return (
+                                        <span key={`ellipsis-${index}`} className="flex items-center justify-center h-9 w-9 text-[#909090]">
+                                            <MoreHorizontal className="h-4 w-4" />
+                                        </span>
+                                    );
+                                }
+
+                                const pageNumber = button as number;
+                                return (
+                                    <Button key={pageNumber} variant={currentPage === pageNumber ? "default" : "outline"} size="sm" onClick={() => handlePageClick(pageNumber)} className={`h-9 w-9 p-0 ${currentPage === pageNumber ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
+                                        {pageNumber}
+                                    </Button>
+                                );
+                            })}
+                        </div>
+
+                        <Button variant="outline" size="sm" onClick={handleNextPage} disabled={currentPage === meta.totalPage} className="border border-[#909090] text-[#909090]">
+                            Next
+                            <ChevronRight className="h-4 w-4" />
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
