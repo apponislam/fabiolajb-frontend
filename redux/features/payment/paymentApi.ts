@@ -2,8 +2,11 @@ import { baseApi } from "@/redux/api/baseApi";
 
 const paymentApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
-        createCheckoutSession: builder.query({
-            query: (quoteId) => `/payment/checkout-session/${quoteId}`,
+        createCheckoutSession: builder.mutation({
+            query: (quoteId) => ({
+                url: `/payment/checkout-session/${quoteId}`,
+                method: "POST",
+            }),
         }),
         getPaymentById: builder.query({
             query: (id) => `/payment/${id}`,
@@ -29,4 +32,4 @@ const paymentApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useCreateCheckoutSessionQuery, useGetPaymentByIdQuery, useGetAllPaymentsQuery } = paymentApi;
+export const { useCreateCheckoutSessionMutation, useGetPaymentByIdQuery, useGetAllPaymentsQuery } = paymentApi;
