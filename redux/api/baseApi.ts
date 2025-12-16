@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery, BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store";
-import { logout, setAccessToken } from "../features/auth/authSlice";
+import { logout, setToken } from "../features/auth/authSlice";
 
 const baseURL = process.env.NEXT_PUBLIC_BASEURL as string;
 
@@ -26,7 +26,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
         if (refreshResult.data) {
             const data = refreshResult.data as any;
             if (data.success) {
-                api.dispatch(setAccessToken(data.data.accessToken));
+                api.dispatch(setToken(data.data.accessToken));
                 result = await baseQuery(args, api, extraOptions);
             } else {
                 api.dispatch(logout());
