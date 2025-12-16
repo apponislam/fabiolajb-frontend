@@ -1,144 +1,16 @@
-// "use client";
-
-// import { useState, useMemo } from "react";
-// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-// import { Input } from "@/components/ui/input";
-// import { Button } from "@/components/ui/button";
-// import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-// import { Search, MoreVertical, ChevronLeft, ChevronRight } from "lucide-react";
-// import { customerData } from "./demoData";
-// import { InvoiceModal } from "./QuoteDetailsModal";
-
-// const ITEMS_PER_PAGE = 10;
-
-// export function CustomerTable() {
-//     const [searchTerm, setSearchTerm] = useState("");
-//     const [currentPage, setCurrentPage] = useState(1);
-//     const [isModalOpen, setIsModalOpen] = useState(false);
-
-//     const filteredData = useMemo(() => {
-//         return customerData.filter((customer) => customer.fullName.toLowerCase().includes(searchTerm.toLowerCase()) || customer.email.toLowerCase().includes(searchTerm.toLowerCase()) || customer.phone.includes(searchTerm) || customer.address.toLowerCase().includes(searchTerm.toLowerCase()));
-//     }, [searchTerm]);
-
-//     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
-//     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-//     const endIndex = startIndex + ITEMS_PER_PAGE;
-//     const paginatedData = filteredData.slice(startIndex, endIndex);
-
-//     const handleSearch = (value: string) => {
-//         setSearchTerm(value);
-//         setCurrentPage(1);
-//     };
-
-//     const getStatusColor = (status: string) => {
-//         switch (status) {
-//             case "Paid":
-//                 return "text-[#3CB371] bg-green-50";
-//             case "Unpaid":
-//                 return "text-orange-600 bg-orange-50";
-//             default:
-//                 return "text-gray-500";
-//         }
-//     };
-
-//     return (
-//         <div className="w-full space-y-4">
-//             {/* Search and Export */}
-//             <div className="flex items-center justify-between gap-4">
-//                 <div className="relative flex-1 max-w-sm">
-//                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-//                     <Input placeholder="Search" value={searchTerm} onChange={(e) => handleSearch(e.target.value)} className="pl-10" />
-//                 </div>
-//             </div>
-
-//             {/* Table */}
-//             <div className="border rounded-lg overflow-hidden">
-//                 <Table>
-//                     <TableHeader>
-//                         <TableRow className="bg-[#3CB371] hover:bg-[#3CB371]">
-//                             <TableHead className="text-white font-semibold">Full Name</TableHead>
-//                             <TableHead className="text-white font-semibold">Email</TableHead>
-//                             <TableHead className="text-white font-semibold">Phone</TableHead>
-//                             <TableHead className="text-white font-semibold">Address</TableHead>
-//                             <TableHead className="text-white font-semibold">Status</TableHead>
-//                             <TableHead className="text-white font-semibold text-center">Action</TableHead>
-//                         </TableRow>
-//                     </TableHeader>
-//                     <TableBody>
-//                         {paginatedData.map((customer) => (
-//                             <TableRow key={customer.id}>
-//                                 <TableCell className="font-medium">{customer.fullName}</TableCell>
-//                                 <TableCell>{customer.email}</TableCell>
-//                                 <TableCell>{customer.phone}</TableCell>
-//                                 <TableCell>{customer.address}</TableCell>
-//                                 <TableCell>
-//                                     <span className={`px-3 py-1 rounded ${getStatusColor(customer.status)}`}>{customer.status}</span>
-//                                 </TableCell>
-//                                 <TableCell className="text-center">
-//                                     <DropdownMenu>
-//                                         <DropdownMenuTrigger asChild>
-//                                             <Button variant="ghost" size="sm">
-//                                                 <MoreVertical className="h-4 w-4" />
-//                                             </Button>
-//                                         </DropdownMenuTrigger>
-//                                         <DropdownMenuContent align="end">
-//                                             <DropdownMenuItem onClick={() => setIsModalOpen(true)}>View Details</DropdownMenuItem>
-//                                             <DropdownMenuItem>Send Payment Mail</DropdownMenuItem>
-//                                             <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
-//                                         </DropdownMenuContent>
-//                                     </DropdownMenu>
-//                                 </TableCell>
-//                             </TableRow>
-//                         ))}
-//                     </TableBody>
-//                 </Table>
-//             </div>
-
-//             <InvoiceModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-//             {/* Pagination */}
-//             <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
-//                 <div className="text-sm text-muted-foreground">
-//                     Showing {startIndex + 1} to {Math.min(endIndex, filteredData.length)} of {filteredData.length} results
-//                 </div>
-//                 <div className="flex items-center gap-2">
-//                     <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
-//                         <ChevronLeft className="h-4 w-4" />
-//                         Previous
-//                     </Button>
-
-//                     {/* Page Numbers */}
-//                     <div className="flex gap-1">
-//                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-//                             <Button key={page} variant={currentPage === page ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(page)} className={`h-9 w-9 p-0 ${currentPage === page ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
-//                                 {page}
-//                             </Button>
-//                         ))}
-//                     </div>
-
-//                     <Button variant="outline" size="sm" onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
-//                         Next
-//                         <ChevronRight className="h-4 w-4" />
-//                     </Button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
-
 "use client";
-
 import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Search, MoreVertical, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { Search, MoreVertical, ChevronLeft, ChevronRight, MoreHorizontal, UserPlus, X } from "lucide-react";
 import { InvoiceModal } from "./QuoteDetailsModal";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetAllQuotesQuery, useSendPaymentLinkMutation, useDeleteQuoteMutation } from "@/redux/features/quote/quoteApi";
+import { useGetAllQuotesQuery, useSendPaymentLinkMutation, useDeleteQuoteMutation, useUpdateQuoteMutation } from "@/redux/features/quote/quoteApi";
 import { toast } from "sonner";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -147,8 +19,11 @@ export function CustomerTable() {
     const [currentPage, setCurrentPage] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+    const [isCleanerModalOpen, setIsCleanerModalOpen] = useState(false);
     const [selectedQuote, setSelectedQuote] = useState<any>(null);
     const [quoteToDelete, setQuoteToDelete] = useState<string | null>(null);
+    const [cleaners, setCleaners] = useState<string[]>([""]); // Start with one empty cleaner
+    const [quoteToAssignCleaner, setQuoteToAssignCleaner] = useState<string | null>(null);
 
     // Use the query hook with search parameters
     const { data, isLoading, error, refetch } = useGetAllQuotesQuery({
@@ -159,6 +34,7 @@ export function CustomerTable() {
 
     const [sendPaymentLink, { isLoading: isSendingPayment }] = useSendPaymentLinkMutation();
     const [deleteQuote, { isLoading: isDeleting }] = useDeleteQuoteMutation();
+    const [updateQuote, { isLoading: isUpdating }] = useUpdateQuoteMutation();
 
     const quotes = data?.data || [];
     const meta = data?.meta || {
@@ -170,18 +46,18 @@ export function CustomerTable() {
 
     const handleSearch = (value: string) => {
         setSearchTerm(value);
-        setCurrentPage(1); // Reset to first page on new search
+        setCurrentPage(1);
     };
 
     const getStatusColor = (status: string) => {
         switch (status) {
             case "paymentCompleted":
                 return "text-[#3CB371] bg-green-50";
+            case "cleanerAssigned":
+                return "text-blue-600 bg-blue-50";
+            case "paymentMailSended":
+                return "text-yellow-600 bg-yellow-50";
             case "pending":
-                return "text-orange-600 bg-orange-50";
-            case "paid":
-                return "text-[#3CB371] bg-green-50";
-            case "unpaid":
                 return "text-orange-600 bg-orange-50";
             default:
                 return "text-gray-500 bg-gray-50";
@@ -192,12 +68,12 @@ export function CustomerTable() {
         switch (status) {
             case "paymentCompleted":
                 return "Paid";
+            case "cleanerAssigned":
+                return "Cleaner Assigned";
+            case "paymentMailSended":
+                return "Payment Link Sent";
             case "pending":
                 return "Pending";
-            case "paid":
-                return "Paid";
-            case "unpaid":
-                return "Unpaid";
             default:
                 return status;
         }
@@ -218,7 +94,6 @@ export function CustomerTable() {
     const handleSendPaymentLink = async (quoteId: string) => {
         try {
             const result = await sendPaymentLink(quoteId).unwrap();
-
             if (result.success) {
                 toast.success(result.message || "Payment link sent successfully");
                 refetch();
@@ -227,6 +102,77 @@ export function CustomerTable() {
             }
         } catch (error: any) {
             toast.error(error?.data?.message || "Failed to send payment link");
+        }
+    };
+
+    const handleSendPing = async (quoteId: string) => {
+        try {
+            const result = await sendPaymentLink(quoteId).unwrap();
+            if (result.success) {
+                toast.success("Ping sent successfully");
+                refetch();
+            } else {
+                toast.error("Failed to send ping");
+            }
+        } catch (error: any) {
+            console.log(error);
+            toast.error("Failed to send ping");
+        }
+    };
+
+    const handleAssignCleanerClick = (quoteId: string, currentCleaners: string[] = []) => {
+        setQuoteToAssignCleaner(quoteId);
+        // Pre-populate with existing cleaners or start with one empty field
+        setCleaners(currentCleaners.length > 0 ? [...currentCleaners] : [""]);
+        setIsCleanerModalOpen(true);
+    };
+
+    const handleAddCleanerField = () => {
+        setCleaners([...cleaners, ""]);
+    };
+
+    const handleRemoveCleanerField = (index: number) => {
+        if (cleaners.length > 1) {
+            const newCleaners = cleaners.filter((_, i) => i !== index);
+            setCleaners(newCleaners);
+        }
+    };
+
+    const handleCleanerChange = (index: number, value: string) => {
+        const newCleaners = [...cleaners];
+        newCleaners[index] = value;
+        setCleaners(newCleaners);
+    };
+
+    const handleAssignCleaners = async () => {
+        if (!quoteToAssignCleaner) return;
+
+        // Filter out empty cleaner names
+        const validCleaners = cleaners.filter((cleaner) => cleaner.trim() !== "");
+
+        if (validCleaners.length === 0) {
+            toast.error("Please add at least one cleaner");
+            return;
+        }
+
+        try {
+            const result = await updateQuote({
+                id: quoteToAssignCleaner,
+                cleaner: validCleaners,
+                status: "cleanerAssigned",
+            }).unwrap();
+
+            if (result.success) {
+                toast.success(result.message || "Cleaners assigned successfully");
+                refetch();
+                setIsCleanerModalOpen(false);
+                setCleaners([""]);
+                setQuoteToAssignCleaner(null);
+            } else {
+                toast.error(result.message || "Failed to assign cleaners");
+            }
+        } catch (error: any) {
+            toast.error(error?.data?.message || "Failed to assign cleaners");
         }
     };
 
@@ -240,7 +186,6 @@ export function CustomerTable() {
 
         try {
             const result = await deleteQuote(quoteToDelete).unwrap();
-
             if (result.success) {
                 toast.success(result.message || "Quote deleted successfully");
                 refetch();
@@ -337,13 +282,14 @@ export function CustomerTable() {
                             <TableHead className="text-white font-semibold">Phone</TableHead>
                             <TableHead className="text-white font-semibold">Address</TableHead>
                             <TableHead className="text-white font-semibold">Status</TableHead>
+                            {/* <TableHead className="text-white font-semibold">Cleaners</TableHead> */}
                             <TableHead className="text-white font-semibold text-center">Action</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {quotes.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={6} className="text-center py-8 text-gray-500">
+                                <TableCell colSpan={7} className="text-center py-8 text-gray-500">
                                     No quotes found
                                 </TableCell>
                             </TableRow>
@@ -355,8 +301,21 @@ export function CustomerTable() {
                                     <TableCell>{quote.phone}</TableCell>
                                     <TableCell className="max-w-xs truncate">{quote.serviceAddress}</TableCell>
                                     <TableCell>
-                                        <span className={`px-3 py-1 rounded ${getStatusColor(quote.status)}`}>{getStatusText(quote.status)}</span>
+                                        <span className={`px-3 py-1 uppercase rounded ${getStatusColor(quote.status)}`}>{getStatusText(quote.status)}</span>
                                     </TableCell>
+                                    {/* <TableCell>
+                                        <div className="flex flex-wrap gap-1">
+                                            {quote.cleaner && quote.cleaner.length > 0 ? (
+                                                quote.cleaner.map((cleaner: string, index: number) => (
+                                                    <Badge key={index} variant="secondary" className="text-xs">
+                                                        {cleaner}
+                                                    </Badge>
+                                                ))
+                                            ) : (
+                                                <span className="text-gray-400 text-sm">None</span>
+                                            )}
+                                        </div>
+                                    </TableCell> */}
                                     <TableCell className="text-center">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
@@ -365,6 +324,7 @@ export function CustomerTable() {
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
+                                                {/* Always show View Details */}
                                                 <DropdownMenuItem
                                                     onClick={() => {
                                                         setSelectedQuote(quote);
@@ -373,12 +333,31 @@ export function CustomerTable() {
                                                 >
                                                     View Details
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleSendPaymentLink(quote._id)} disabled={quote.status === "paymentCompleted" || quote.status === "paid" || isSendingPayment}>
-                                                    {isSendingPayment ? "Sending..." : "Send Payment Mail"}
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteClick(quote._id)} disabled={isDeleting}>
-                                                    {isDeleting ? "Deleting..." : "Delete"}
-                                                </DropdownMenuItem>
+
+                                                {/* Status-based actions */}
+                                                {quote.status === "pending" && (
+                                                    <>
+                                                        <DropdownMenuItem onClick={() => handleSendPaymentLink(quote._id)} disabled={isSendingPayment}>
+                                                            {isSendingPayment ? "Sending..." : "Send Payment Mail"}
+                                                        </DropdownMenuItem>
+                                                        <DropdownMenuItem className="text-red-600" onClick={() => handleDeleteClick(quote._id)} disabled={isDeleting}>
+                                                            {isDeleting ? "Deleting..." : "Delete"}
+                                                        </DropdownMenuItem>
+                                                    </>
+                                                )}
+
+                                                {quote.status === "paymentMailSended" && (
+                                                    <DropdownMenuItem onClick={() => handleSendPing(quote._id)} disabled={isSendingPayment}>
+                                                        {isSendingPayment ? "Sending..." : "Send Ping"}
+                                                    </DropdownMenuItem>
+                                                )}
+
+                                                {(quote.status === "paymentCompleted" || quote.status === "cleanerAssigned") && (
+                                                    <DropdownMenuItem onClick={() => handleAssignCleanerClick(quote._id, quote.cleaner || [])} disabled={isUpdating}>
+                                                        <UserPlus className="h-4 w-4 mr-2" />
+                                                        {isUpdating ? "Assigning..." : "Assign Cleaner"}
+                                                    </DropdownMenuItem>
+                                                )}
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>
@@ -398,6 +377,50 @@ export function CustomerTable() {
                 }}
                 quoteData={selectedQuote}
             />
+
+            {/* Assign Cleaner Modal */}
+            <Dialog open={isCleanerModalOpen} onOpenChange={setIsCleanerModalOpen}>
+                <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                        <DialogTitle>Assign Cleaners</DialogTitle>
+                        <DialogDescription>Add cleaners for this quote. Click + to add more cleaners.</DialogDescription>
+                    </DialogHeader>
+
+                    <div className="space-y-4 py-4">
+                        {cleaners.map((cleaner, index) => (
+                            <div key={index} className="flex items-center gap-2">
+                                <Input placeholder={`Cleaner ${index + 1} name`} value={cleaner} onChange={(e) => handleCleanerChange(index, e.target.value)} className="flex-1" />
+                                {cleaners.length > 1 && (
+                                    <Button type="button" variant="ghost" size="icon" onClick={() => handleRemoveCleanerField(index)} className="h-10 w-10 text-red-500 hover:text-red-700 hover:bg-red-50">
+                                        <X className="h-4 w-4" />
+                                    </Button>
+                                )}
+                            </div>
+                        ))}
+
+                        <Button type="button" variant="outline" onClick={handleAddCleanerField} className="w-full">
+                            <UserPlus className="h-4 w-4 mr-2" />
+                            Add Another Cleaner
+                        </Button>
+                    </div>
+
+                    <DialogFooter>
+                        <Button
+                            variant="outline"
+                            onClick={() => {
+                                setIsCleanerModalOpen(false);
+                                setCleaners([""]);
+                                setQuoteToAssignCleaner(null);
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button onClick={handleAssignCleaners} disabled={isUpdating}>
+                            {isUpdating ? "Assigning..." : "Assign Cleaners"}
+                        </Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
 
             {/* Delete Confirmation Dialog */}
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
