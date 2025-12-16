@@ -149,6 +149,7 @@ const LoginPage = () => {
     const onSubmit = async (data: LoginFormData) => {
         try {
             const result = await login(data).unwrap();
+            console.log(result);
 
             if (result.success && result.data) {
                 dispatch(
