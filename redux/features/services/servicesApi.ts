@@ -4,31 +4,49 @@ const servicesApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         // POST: Create service with image
         createService: builder.mutation({
-            query: (formData) => ({
+            query: (formData: FormData) => ({
                 url: "/service",
                 method: "POST",
                 body: formData,
-                formData: true,
             }),
+            invalidatesTags: ["Service"],
         }),
 
-        // GET: All services
         getAllServices: builder.query({
-            query: () => "/service",
+            query: (params?: { page?: number; limit?: number; searchTerm?: string }) => {
+                const queryParams: any = {
+                    page: params?.page || 1,
+                    limit: params?.limit || 10,
+                };
+
+                if (params?.searchTerm) {
+                    queryParams.searchTerm = params.searchTerm;
+                }
+
+                return {
+                    url: "/service",
+                    method: "GET",
+                    params: queryParams,
+                };
+            },
+            providesTags: ["Service"],
         }),
 
-        // GET: Active services
         getActiveServices: builder.query({
             query: () => "/service/active",
         }),
 
-        // PATCH: Update service
         updateService: builder.mutation({
-            query: ({ id, ...data }) => ({
-                url: `/service/${id}`,
-                method: "PATCH",
-                body: data,
-            }),
+            query: ({ id, body }) => {
+                // Send FormData as-is (with data field containing JSON string)
+                return {
+                    url: `/service/${id}`,
+                    method: "PATCH",
+                    body,
+                    // No headers - browser sets multipart/form-data with boundary
+                };
+            },
+            invalidatesTags: ["Service"],
         }),
 
         // DELETE: Service
@@ -37,6 +55,7 @@ const servicesApi = baseApi.injectEndpoints({
                 url: `/service/${id}`,
                 method: "DELETE",
             }),
+            invalidatesTags: ["Service"],
         }),
     }),
 });
