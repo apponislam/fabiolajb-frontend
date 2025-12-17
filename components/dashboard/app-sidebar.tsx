@@ -2,12 +2,22 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { MenuItems } from "@/lib/constants/navigation";
 import { LogOut } from "lucide-react";
+import { useAppDispatch } from "@/redux/hooks";
+import { logout } from "@/redux/features/auth/authSlice";
 
 export function AppSidebar() {
     const pathname = usePathname();
+    const router = useRouter();
+    const dispatch = useAppDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+
+        router.push("/login");
+    };
 
     return (
         <Sidebar className="border-r border-[#EFEFEF] bg-white!">
@@ -48,7 +58,7 @@ export function AppSidebar() {
                         <SidebarMenuItem>
                             <SidebarMenuButton asChild>
                                 <button
-                                    onClick={() => console.log("Logging out...")}
+                                    onClick={handleLogout}
                                     className="flex items-center gap-3 px-4 py-3 h-auto rounded-lg transition-colors duration-200 
                                         text-[#2A2A2E] bg-transparent hover:bg-[#3CB371]! hover:text-white! w-full cursor-pointer"
                                 >

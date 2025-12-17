@@ -281,7 +281,7 @@ export function CustomerTable() {
                             <TableHead className="text-white font-semibold">Email</TableHead>
                             <TableHead className="text-white font-semibold">Phone</TableHead>
                             <TableHead className="text-white font-semibold">Address</TableHead>
-                            <TableHead className="text-white font-semibold">Status</TableHead>
+                            <TableHead className="text-white font-semibold text-center">Status</TableHead>
                             {/* <TableHead className="text-white font-semibold">Cleaners</TableHead> */}
                             <TableHead className="text-white font-semibold text-center">Action</TableHead>
                         </TableRow>
@@ -300,7 +300,7 @@ export function CustomerTable() {
                                     <TableCell>{quote.email}</TableCell>
                                     <TableCell>{quote.phone}</TableCell>
                                     <TableCell className="max-w-xs truncate">{quote.serviceAddress}</TableCell>
-                                    <TableCell>
+                                    <TableCell className="text-center">
                                         <span className={`px-3 py-1 uppercase rounded ${getStatusColor(quote.status)}`}>{getStatusText(quote.status)}</span>
                                     </TableCell>
                                     {/* <TableCell>
