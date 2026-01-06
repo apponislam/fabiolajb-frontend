@@ -4,6 +4,7 @@ import AuthenticatedGuard from "@/components/Provider/AuthenticatedGuard";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+    // Layout for all dashboard routes
     return (
         <AuthenticatedGuard>
             <SidebarProvider>
