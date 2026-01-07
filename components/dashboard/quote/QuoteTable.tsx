@@ -303,19 +303,7 @@ export function CustomerTable() {
                                     <TableCell className="text-center">
                                         <span className={`px-3 py-1 uppercase rounded ${getStatusColor(quote.status)}`}>{getStatusText(quote.status)}</span>
                                     </TableCell>
-                                    {/* <TableCell>
-                                        <div className="flex flex-wrap gap-1">
-                                            {quote.cleaner && quote.cleaner.length > 0 ? (
-                                                quote.cleaner.map((cleaner: string, index: number) => (
-                                                    <Badge key={index} variant="secondary" className="text-xs">
-                                                        {cleaner}
-                                                    </Badge>
-                                                ))
-                                            ) : (
-                                                <span className="text-gray-400 text-sm">None</span>
-                                            )}
-                                        </div>
-                                    </TableCell> */}
+
                                     <TableCell className="text-center">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
@@ -354,7 +342,7 @@ export function CustomerTable() {
 
                                                 {(quote.status === "paymentCompleted" || quote.status === "cleanerAssigned") && (
                                                     <DropdownMenuItem onClick={() => handleAssignCleanerClick(quote._id, quote.cleaner || [])} disabled={isUpdating}>
-                                                        <UserPlus className="h-4 w-4 mr-2" />
+                                                        {/* <UserPlus className="h-4 w-4 mr-2" /> */}
                                                         {isUpdating ? "Assigning..." : "Assign Cleaner"}
                                                     </DropdownMenuItem>
                                                 )}

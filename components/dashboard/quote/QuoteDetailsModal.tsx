@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 
 interface QuoteData {
@@ -94,6 +94,8 @@ export function InvoiceModal({ isOpen, onClose, quoteData }: InvoiceModalProps) 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
             <DialogContent className="sm:max-w-lg">
+                {/* Add DialogTitle for accessibility - visually hidden */}
+                <DialogTitle className="sr-only">Invoice Details for {quoteData.fullName}</DialogTitle>
                 <div className="space-y-4 relative">
                     {/* Amount and Date */}
                     <div>
