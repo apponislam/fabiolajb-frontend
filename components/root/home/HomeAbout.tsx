@@ -22,12 +22,6 @@ const HomeAboutUs = () => {
                     {/* First Row - Two images side by side with absolute text */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {/* First Image with absolute text bottom right */}
-                        {/* <div className="relative">
-                            <Image src="/home/picture1.svg" alt="About Us 1" width={600} height={400} className="w-full h-auto rounded-lg" />
-                            <div className="absolute bottom-4 right-4 text-[#797979] p-4 rounded-lg max-w-60 md:max-w-xs">
-                                <p className="text-sm md:text-[16px]">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-                            </div>
-                        </div> */}
 
                         <div className="relative w-full max-w-5xl mx-auto rounded-[40px]">
                             <div className=" overflow-hidden rounded-[40px] h-full">
@@ -42,12 +36,6 @@ const HomeAboutUs = () => {
                         </div>
 
                         {/* Second Image with absolute text top left */}
-                        {/* <div className="relative">
-                            <Image src="/home/picture2.svg" alt="About Us 2" width={600} height={400} className="w-full h-auto rounded-lg" />
-                            <div className="absolute top-4 left-4 text-[#797979] p-4 rounded-lg max-w-60 md:max-w-xs">
-                                <p className="text-sm md:text-[16px]">Amet minim mollit non deserunt ullamco sit aliqua dolor do amet sint. Velit officia enim velit mollit. Exercitation veniam consequat sunt nostrud amet.</p>
-                            </div>
-                        </div> */}
 
                         <div className="relative w-full max-w-5xl mx-auto rounded-[40px]">
                             <div className=" overflow-hidden rounded-[40px]">
