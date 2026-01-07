@@ -52,7 +52,7 @@ const HeroSection = () => {
                     </h1>
 
                     <p className="text-white/70 text-lg leading-relaxed">
-                        Fast quotes. Flexible scheduling. Reliable cleaning—so <br className="hidden md:block" /> you can just breathe.
+                        Fast quotes. Flexible scheduling. Reliable cleaning—so <br className="hidden md:blockWe Don't Just Clean" /> you can just breathe.
                     </p>
 
                     {/* Supporting Bullets */}

@@ -16,13 +16,15 @@ const OurValue = () => {
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <Image src="/home/about/icon1.svg" alt="Value 1" width={64} height={64} className="mb-4 rounded-2xl"></Image>
-                            <p className="text-center mb-4">Care & Compassion</p>
-                            <p className="text-center text-[#7A8A9E]">We treat every space as if it were our own, with genuine care and attention.</p>
+                            <p className="text-center mb-4">Care & Attention</p>
+                            {/* <p className="text-center text-[#7A8A9E]">We treat every space as if it were our own, with genuine care and attention.</p> */}
+                            <p className="text-center text-[#7A8A9E]">We treat every space with respect and detail—like it’s our own.</p>
                         </div>
                         <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <Image src="/home/about/icon2.svg" alt="Value 1" width={64} height={64} className="mb-4 rounded-2xl"></Image>
                             <p className="text-center mb-4">Customer First</p>
-                            <p className="text-center text-[#7A8A9E]">Your satisfaction is our priority. We listen, adapt, and deliver beyond expectations.</p>
+                            {/* <p className="text-center text-[#7A8A9E]">Your satisfaction is our priority. We listen, adapt, and deliver beyond expectations.</p> */}
+                            <p className="text-center text-[#7A8A9E]">We listen, adapt, and make sure the service fits your needs.</p>
                         </div>
                         <div className="hidden md:block">
                             <Image src="/home/about/picture2.svg" alt="Value 1" width={358} height={216} className="w-full rounded-2xl"></Image>
@@ -38,12 +40,14 @@ const OurValue = () => {
                         <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <Image src="/home/about/icon3.svg" alt="Value 1" width={64} height={64} className="mb-4 rounded-2xl"></Image>
                             <p className="text-center mb-4">Excellence</p>
-                            <p className="text-center text-[#7A8A9E]">We maintain the highest standards in every job, big or small.</p>
+                            {/* <p className="text-center text-[#7A8A9E]">We maintain the highest standards in every job, big or small.</p> */}
+                            <p className="text-center text-[#7A8A9E]">High standards, consistent quality, every job.</p>
                         </div>
                         <div className="flex flex-col items-center justify-center bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <Image src="/home/about/icon4.svg" alt="Value 1" width={64} height={64} className="mb-4 rounded-2xl"></Image>
                             <p className="text-center mb-4">Reliability</p>
-                            <p className="text-center text-[#7A8A9E]">Count on us to be there when you need us, every single time.</p>
+                            {/* <p className="text-center text-[#7A8A9E]">Count on us to be there when you need us, every single time.</p> */}
+                            <p className="text-center text-[#7A8A9E]">We show up when we say we will. Every time.</p>
                         </div>
                     </div>
                     <div className="w-28 hidden md:block">
