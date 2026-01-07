@@ -12,7 +12,7 @@ const ChooseUs = () => {
                         <h2 className="text-4xl font-bold text-[#5E5E5E] mb-4">BENEFITS</h2>
                         <p className="text-xl text-[#7A8A9E]  mx-auto">What This Means for You</p>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-14 mb-16">
                         {/* First Box - Original Layout */}
                         <div className="relative md:min-h-[400px]">
                             <Image src="/home/about/choseus1.svg" alt="Why cline choose us" width={445} height={300} className="w-4/5 hidden md:block h-[300px] object-cover rounded-[18px]"></Image>
@@ -127,22 +127,28 @@ const ChooseUs = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10 mt-20 border border-[#3CB371] rounded-2xl p-6 shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)]">
-                        <div className="flex items-center justify-center flex-col">
-                            <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">1.5</h2>
-                            <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Years Experience</p>
+                    <div className="mt-20">
+                        <div className="text-center mb-6">
+                            <h2 className="text-4xl font-bold text-[#5E5E5E] mb-4">STATS</h2>
+                            <p className="text-xl text-[#7A8A9E]  mx-auto">Trusted by Businesses That Care About Clean</p>
                         </div>
-                        <div className="flex items-center justify-center flex-col">
-                            <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">500+</h2>
-                            <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Happy Clients</p>
-                        </div>
-                        <div className="flex items-center justify-center flex-col">
-                            <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">1500+</h2>
-                            <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Spaces Cleaned</p>
-                        </div>
-                        <div className="flex items-center justify-center flex-col">
-                            <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">97%</h2>
-                            <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Satisfaction Rate</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10  border border-[#3CB371] rounded-2xl p-6 shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)]">
+                            <div className="flex items-center justify-center flex-col">
+                                <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">1.5</h2>
+                                <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Years Experience</p>
+                            </div>
+                            <div className="flex items-center justify-center flex-col">
+                                <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">500+</h2>
+                                <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Happy Clients</p>
+                            </div>
+                            <div className="flex items-center justify-center flex-col">
+                                <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">1500+</h2>
+                                <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Spaces Cleaned</p>
+                            </div>
+                            <div className="flex items-center justify-center flex-col">
+                                <h2 className="font-bold text-center text-3xl md:text-5xl text-[#5E5E5E] mb-2">97%</h2>
+                                <p className="font-medium text-2xl md:text-3xl text-[#5e5e5e]">Satisfaction Rate</p>
+                            </div>
                         </div>
                     </div>
                 </div>
