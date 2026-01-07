@@ -1,4 +1,5 @@
 import Footer from "@/components/root/Footer";
+import HeroHowItWorks from "@/components/root/home/HeroHowItWorks";
 import HeroSection from "@/components/root/home/HeroSection";
 import HomeAboutUs from "@/components/root/home/HomeAbout";
 import HomeQuoteSection from "@/components/root/home/HomeQuote";
@@ -14,6 +15,7 @@ export default function Home() {
             </div>
             <div>
                 <HeroSection />
+                <HeroHowItWorks />
                 <HomeAboutUs />
                 <HomeServices />
                 <HomeQuoteSection />
