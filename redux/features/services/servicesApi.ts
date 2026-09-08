@@ -5,7 +5,7 @@ const servicesApi = baseApi.injectEndpoints({
         // POST: Create service with image
         createService: builder.mutation({
             query: (formData: FormData) => ({
-                url: "/service",
+                url: "/services",
                 method: "POST",
                 body: formData,
             }),
@@ -24,7 +24,7 @@ const servicesApi = baseApi.injectEndpoints({
                 }
 
                 return {
-                    url: "/service",
+                    url: "/services",
                     method: "GET",
                     params: queryParams,
                 };
@@ -40,7 +40,7 @@ const servicesApi = baseApi.injectEndpoints({
             query: ({ id, body }) => {
                 // Send FormData as-is (with data field containing JSON string)
                 return {
-                    url: `/service/${id}`,
+                    url: `/services/${id}`,
                     method: "PATCH",
                     body,
                     // No headers - browser sets multipart/form-data with boundary
@@ -52,7 +52,7 @@ const servicesApi = baseApi.injectEndpoints({
         // DELETE: Service
         deleteService: builder.mutation({
             query: (id) => ({
-                url: `/service/${id}`,
+                url: `/services/${id}`,
                 method: "DELETE",
             }),
             invalidatesTags: ["Service"],

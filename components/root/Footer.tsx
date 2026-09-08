@@ -55,7 +55,9 @@ const Footer = () => {
                     </div>
 
                     {/* Copyright */}
-                    <p className="text-gray-300 text-[14px] md:text-[16px] order-1 lg:order-2">&copy; 2025 Just Breathe Cleaning Services</p>
+                    <p className="text-gray-300 text-[14px] md:text-[16px] order-1 lg:order-2">
+                        Copyright {new Date().getFullYear()} Just Breathe Cleaning Services. All rights reserved.
+                    </p>
 
                     {/* Social Icons */}
                     <div className="flex justify-center gap-3 md:gap-4 order-3">

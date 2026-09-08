@@ -63,27 +63,31 @@ const ContactPage = () => {
                     {/* Contact Information - 3 Cards */}
                     <div className="space-y-6">
                         {/* Call Us Card */}
-                        <div className="bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6  ">
+                        <div className="bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <div className="flex items-center gap-3">
                                 <div className="bg-[#3CB371] p-3 rounded-full w-11 h-11 flex items-center justify-center">
                                     <LuPhoneCall className="text-white text-lg" />
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-[#434343]">Call Us</h4>
-                                    <p className="text-[#5E5E5E] mt-1">+(08) 255 201 888</p>
+                                    <a href="tel:+08255201888" className="text-[#5E5E5E] hover:text-[#3CB371] transition-colors mt-1 block">
+                                        +(08) 255 201 888
+                                    </a>
                                 </div>
                             </div>
                         </div>
 
                         {/* Email Now Card */}
-                        <div className="bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6  ">
+                        <div className="bg-white rounded-2xl shadow-[0px_6px_30px_-6px_rgba(88,92,95,0.102)] p-6">
                             <div className="flex items-center gap-3">
                                 <div className="bg-[#3CB371] p-3 rounded-full w-11 h-11 flex items-center justify-center">
                                     <BsEnvelope className="text-white text-lg" />
                                 </div>
                                 <div>
                                     <h4 className="font-semibold text-[#434343]">Email Now</h4>
-                                    <p className="text-[#5E5E5E] mt-1">Hello@procleaning.com</p>
+                                    <a href="mailto:Hello@procleaning.com" className="text-[#5E5E5E] hover:text-[#3CB371] transition-colors mt-1 block">
+                                        Hello@procleaning.com
+                                    </a>
                                 </div>
                             </div>
                         </div>
