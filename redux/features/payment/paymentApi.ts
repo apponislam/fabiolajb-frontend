@@ -4,12 +4,12 @@ const paymentApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         createCheckoutSession: builder.mutation({
             query: (quoteId) => ({
-                url: `/payment/checkout-session/${quoteId}`,
+                url: `/payments/checkout-session/${quoteId}`,
                 method: "POST",
             }),
         }),
         getPaymentById: builder.query({
-            query: (id) => `/payment/${id}`,
+            query: (id) => `/payments/${id}`,
         }),
         getAllPayments: builder.query({
             query: (params?: { page?: number; limit?: number; searchTerm?: string }) => {
@@ -23,7 +23,7 @@ const paymentApi = baseApi.injectEndpoints({
                 }
 
                 return {
-                    url: "/payment",
+                    url: "/payments",
                     method: "GET",
                     params: queryParams,
                 };

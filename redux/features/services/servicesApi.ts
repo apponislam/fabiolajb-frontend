@@ -33,7 +33,7 @@ const servicesApi = baseApi.injectEndpoints({
         }),
 
         getActiveServices: builder.query({
-            query: () => "/service/active",
+            query: () => "/services/active",
         }),
 
         updateService: builder.mutation({
