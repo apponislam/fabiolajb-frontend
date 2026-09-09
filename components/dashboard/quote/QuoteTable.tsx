@@ -11,6 +11,7 @@ import { useGetAllQuotesQuery, useSendPaymentLinkMutation, useDeleteQuoteMutatio
 import { toast } from "sonner";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Pagination } from "@/components/Pagination";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -36,13 +37,16 @@ export function CustomerTable() {
     const [deleteQuote, { isLoading: isDeleting }] = useDeleteQuoteMutation();
     const [updateQuote, { isLoading: isUpdating }] = useUpdateQuoteMutation();
 
-    const quotes = data?.data || [];
-    const meta = data?.meta || {
-        total: 0,
+    const quotes = Array.isArray(data?.data) ? data.data : data?.data?.result || [];
+    const meta = data?.meta || data?.data?.meta || {
+        total: quotes.length,
         page: 1,
+        totalPages: 1,
         totalPage: 1,
         limit: ITEMS_PER_PAGE,
     };
+
+    const totalPages = meta.totalPages || meta.totalPage || Math.ceil((meta.total || 0) / ITEMS_PER_PAGE) || 1;
 
     const handleSearch = (value: string) => {
         setSearchTerm(value);
@@ -84,7 +88,7 @@ export function CustomerTable() {
     };
 
     const handleNextPage = () => {
-        setCurrentPage((prev) => Math.min(meta.totalPage, prev + 1));
+        setCurrentPage((prev) => Math.min(totalPages, prev + 1));
     };
 
     const handlePageClick = (page: number) => {
@@ -209,8 +213,8 @@ export function CustomerTable() {
         const buttons = [];
         const maxVisibleButtons = 5;
 
-        if (meta.totalPage <= maxVisibleButtons) {
-            for (let i = 1; i <= meta.totalPage; i++) {
+        if (totalPages <= maxVisibleButtons) {
+            for (let i = 1; i <= totalPages; i++) {
                 buttons.push(i);
             }
         } else {
@@ -219,11 +223,11 @@ export function CustomerTable() {
                     buttons.push(i);
                 }
                 buttons.push("ellipsis");
-                buttons.push(meta.totalPage);
-            } else if (currentPage >= meta.totalPage - 2) {
+                buttons.push(totalPages);
+            } else if (currentPage >= totalPages - 2) {
                 buttons.push(1);
                 buttons.push("ellipsis");
-                for (let i = meta.totalPage - 3; i <= meta.totalPage; i++) {
+                for (let i = totalPages - 3; i <= totalPages; i++) {
                     buttons.push(i);
                 }
             } else {
@@ -233,7 +237,7 @@ export function CustomerTable() {
                 buttons.push(currentPage);
                 buttons.push(currentPage + 1);
                 buttons.push("ellipsis");
-                buttons.push(meta.totalPage);
+                buttons.push(totalPages);
             }
         }
         return buttons;
@@ -429,44 +433,11 @@ export function CustomerTable() {
             </AlertDialog>
 
             {/* Pagination */}
-            {meta.totalPage > 0 && (
-                <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
-                    <div className="text-sm text-muted-foreground">
-                        Showing {(currentPage - 1) * meta.limit + 1} to {Math.min(currentPage * meta.limit, meta.total)} of {meta.total} results
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline" size="sm" onClick={handlePreviousPage} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
-                            <ChevronLeft className="h-4 w-4" />
-                            Previous
-                        </Button>
-
-                        {/* Page Numbers */}
-                        <div className="flex gap-1">
-                            {getPaginationButtons().map((button, index) => {
-                                if (button === "ellipsis") {
-                                    return (
-                                        <span key={`ellipsis-${index}`} className="flex items-center justify-center h-9 w-9 text-[#909090]">
-                                            <MoreHorizontal className="h-4 w-4" />
-                                        </span>
-                                    );
-                                }
-
-                                const pageNumber = button as number;
-                                return (
-                                    <Button key={pageNumber} variant={currentPage === pageNumber ? "default" : "outline"} size="sm" onClick={() => handlePageClick(pageNumber)} className={`h-9 w-9 p-0 ${currentPage === pageNumber ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
-                                        {pageNumber}
-                                    </Button>
-                                );
-                            })}
-                        </div>
-
-                        <Button variant="outline" size="sm" onClick={handleNextPage} disabled={currentPage === meta.totalPage} className="border border-[#909090] text-[#909090]">
-                            Next
-                            <ChevronRight className="h-4 w-4" />
-                        </Button>
-                    </div>
-                </div>
-            )}
+            <Pagination
+                meta={meta}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 }

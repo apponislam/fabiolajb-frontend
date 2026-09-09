@@ -103,6 +103,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { useGetAllContactsQuery } from "@/redux/features/contact/contactApi";
+import { Pagination } from "@/components/Pagination";
 
 const ITEMS_PER_PAGE = 10;
 
@@ -215,42 +216,11 @@ export function InquiryTable() {
             </div>
 
             {/* Pagination */}
-            <div className="flex items-center justify-between pt-4 flex-col-reverse md:flex-row gap-4">
-                <div className="text-sm text-muted-foreground">
-                    Showing {(meta.page - 1) * ITEMS_PER_PAGE + 1} to {Math.min(meta.page * ITEMS_PER_PAGE, meta.total)} of {meta.total} results
-                </div>
-                <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="border border-[#909090] text-[#909090]">
-                        <ChevronLeft className="h-4 w-4" />
-                        Previous
-                    </Button>
-
-                    {/* Page Numbers */}
-                    <div className="flex gap-1">
-                        {getPaginationButtons().map((button, index) => {
-                            if (button === "ellipsis") {
-                                return (
-                                    <span key={`ellipsis-${index}`} className="flex items-center justify-center h-9 w-9 text-[#909090]">
-                                        <MoreHorizontal className="h-4 w-4" />
-                                    </span>
-                                );
-                            }
-
-                            const pageNumber = button as number;
-                            return (
-                                <Button key={pageNumber} variant={currentPage === pageNumber ? "default" : "outline"} size="sm" onClick={() => setCurrentPage(pageNumber)} className={`h-9 w-9 p-0 ${currentPage === pageNumber ? "bg-[#3CB371] hover:bg-[#3CB371] text-white" : "border border-[#909090] text-[#909090]"}`}>
-                                    {pageNumber}
-                                </Button>
-                            );
-                        })}
-                    </div>
-
-                    <Button variant="outline" size="sm" onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} className="border border-[#909090] text-[#909090]">
-                        Next
-                        <ChevronRight className="h-4 w-4" />
-                    </Button>
-                </div>
-            </div>
+            <Pagination
+                meta={meta}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+            />
         </div>
     );
 }
