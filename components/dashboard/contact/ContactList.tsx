@@ -116,15 +116,23 @@ export function InquiryTable() {
         searchTerm: searchTerm || undefined,
     });
 
-    const contacts = data?.data?.result || [];
-    const meta = data?.data?.meta || { total: 0, page: 1, totalPage: 1 };
+    const contacts = Array.isArray(data?.data)
+        ? data.data
+        : data?.data?.result || [];
+
+    const meta = data?.meta || data?.data?.meta || {
+        total: contacts.length,
+        page: 1,
+        totalPages: 1,
+        totalPage: 1
+    };
 
     // Refetch when search term changes
     useEffect(() => {
         refetch();
     }, [searchTerm, refetch]);
 
-    const totalPages = meta.totalPage || Math.ceil(meta.total / ITEMS_PER_PAGE);
+    const totalPages = meta.totalPages || meta.totalPage || Math.ceil((meta.total || 0) / ITEMS_PER_PAGE) || 1;
 
     // Function to generate pagination buttons with ellipsis
     const getPaginationButtons = () => {

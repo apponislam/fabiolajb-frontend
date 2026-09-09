@@ -4,7 +4,7 @@ const contactApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         createContact: builder.mutation({
             query: (contactData) => ({
-                url: "/public/contact",
+                url: "/contact",
                 method: "POST",
                 body: contactData,
             }),
@@ -22,7 +22,7 @@ const contactApi = baseApi.injectEndpoints({
                 }
 
                 return {
-                    url: "/public/contact",
+                    url: "/contact",
                     method: "GET",
                     params: queryParams,
                 };
