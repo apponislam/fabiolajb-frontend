@@ -136,6 +136,7 @@ import Image from "next/image";
 import { EditServiceModal } from "./EditService";
 import { AddServiceModal } from "./AddService";
 import { useGetAllServicesQuery, useDeleteServiceMutation } from "@/redux/features/services/servicesApi";
+import { formatImageUrl } from "@/utils/formatImageUrl";
 import { toast } from "sonner";
 
 const ITEMS_PER_PAGE = 5;
@@ -270,7 +271,7 @@ export function ServiceList() {
                         <div key={service._id} className="flex gap-4">
                             <div className="w-24 h-24 rounded-lg overflow-hidden shrink-0 relative">
                                 {service.image ? (
-                                    <Image src={`${process.env.NEXT_PUBLIC_BASEURL || "http://10.10.7.26:5003"}${service.image}`} alt={service.title} fill sizes="96px" className="object-cover" />
+                                    <Image src={formatImageUrl(service.image)} alt={service.title} fill sizes="96px" className="object-cover" />
                                 ) : (
                                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                                         <span className="text-gray-500">No Image</span>

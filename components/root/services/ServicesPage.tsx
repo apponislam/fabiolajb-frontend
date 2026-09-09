@@ -105,6 +105,7 @@
 import { CleaningServiceModal } from "@/components/ServiceCard";
 import Image from "next/image";
 import { useGetActiveServicesQuery } from "@/redux/features/services/servicesApi";
+import { formatImageUrl } from "@/utils/formatImageUrl";
 
 const ServicesPage = () => {
     // Fetch all active services from API
@@ -112,9 +113,6 @@ const ServicesPage = () => {
 
     // Get all services or empty array if loading/error
     const services = servicesData?.data || [];
-
-    // Get base URL from environment variable
-    const baseUrl = process.env.NEXT_PUBLIC_BASEURL || "";
 
     return (
         <div className="min-h-screen bg-white">
@@ -137,27 +135,26 @@ const ServicesPage = () => {
 
             {/* Loading State */}
             {isLoading && (
-                <div className="text-center py-12">
+                <div className="text-center py-16">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-[#3CB371]"></div>
                     <p className="text-gray-600 mt-4">Loading services...</p>
                 </div>
             )}
 
             {/* Error State */}
-            {error && !isLoading && (
-                <div className="text-center py-12">
+            {error && (
+                <div className="text-center py-16">
                     <p className="text-red-500">Failed to load services. Please try again.</p>
                 </div>
             )}
 
-            {/* Services Grid - Directly after hero without extra header */}
+            {/* Services Grid */}
             <section className="py-16 px-4">
                 <div className="container mx-auto">
                     {!isLoading && !error && services.length > 0 && (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {services.map((service: any) => {
-                                // Construct full image URL
-                                const imageUrl = service.image ? `${baseUrl}${service.image}` : "/home/Image.svg";
+                                const imageUrl = formatImageUrl(service.image, "/home/Image.svg");
 
                                 return (
                                     <div key={service._id} className="w-full flex flex-col justify-between">

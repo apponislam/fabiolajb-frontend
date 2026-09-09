@@ -5,15 +5,14 @@ import { useGetActiveServicesQuery } from "@/redux/features/services/servicesApi
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 
+import { formatImageUrl } from "@/utils/formatImageUrl";
+
 const HomeServices = () => {
     // Fetch active services from API
     const { data: servicesData, isLoading, error } = useGetActiveServicesQuery(undefined);
 
     // Get only first 3 services or empty array if loading/error
     const services = servicesData?.data?.slice(0, 3) || [];
-
-    // Get base URL from environment variable
-    const baseUrl = process.env.NEXT_PUBLIC_BASEURL || "";
 
     return (
         <section className="text-black py-16 px-4">
@@ -35,7 +34,7 @@ const HomeServices = () => {
                 )}
 
                 {/* Error State */}
-                {error && !isLoading && (
+                {error && (
                     <div className="text-center py-12">
                         <p className="text-red-500">Failed to load services. Please try again.</p>
                     </div>
@@ -45,8 +44,8 @@ const HomeServices = () => {
                 {!isLoading && !error && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {services.map((service: any) => {
-                            // Construct full image URL
-                            const imageUrl = service.image ? `${baseUrl}${service.image}` : "/home/Image.svg"; // Fallback image
+                            // Construct full image URL using formatImageUrl
+                            const imageUrl = formatImageUrl(service.image, "/home/Image.svg");
 
                             return (
                                 <div key={service._id} className="w-full flex flex-col justify-between">
